@@ -1,354 +1,246 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { matematicaEGB2016 } from "@/data/curriculo/ecuador2016/matematica-egb";
 
-type PlanInputs = {
-  asignatura: string;
-  grado: string;
-  unidad: string;
-  tema: string;
-  destreza: string;
-  duracionTotal: number; // minutos
-  minE: number;
-  minR: number;
-  minC: number;
-  minA: number;
-};
+type SubnivelKey = keyof typeof matematicaEGB2016.subniveles;
 
-function safe(v: string) {
-  return (v || "").trim();
-}
+export default function Home() {
+  // =========================
+  // Inputs del docente
+  // =========================
+  const [asignatura, setAsignatura] = useState("Matemática");
+  const [grado, setGrado] = useState("7 EGB");
+  const [unidad, setUnidad] = useState("2");
+  const [tema, setTema] = useState("");
 
-function construirObjetivo({ destreza }: PlanInputs) {
-  const d = safe(destreza);
-  if (!d) {
-    return `Al finalizar la clase, el estudiante desarrollará la destreza propuesta mediante actividades estructuradas en ERCA, con apoyos DUA (representación, acción/expresión y compromiso).`;
-  }
-  return `Al finalizar la clase, el estudiante desarrollará la destreza propuesta: “${d}”, mediante actividades estructuradas en ERCA, con apoyos DUA (representación, acción/expresión y compromiso).`;
-}
+  // Subnivel y destreza elegida
+  const subniveles = useMemo(() => Object.keys(matematicaEGB2016.subniveles) as SubnivelKey[], []);
+  const [subnivel, setSubnivel] = useState<SubnivelKey>(subniveles[0] ?? "EGB Superior");
 
-function sugerirIndicadores(destreza: string) {
-  const d = destreza.toLowerCase();
+  const dataSubnivel = matematicaEGB2016.subniveles[subnivel];
 
-  // Heurística simple por verbos frecuentes (puedes ajustar cuando quieras)
-  const base = [
-    "Comprende la consigna y organiza el procedimiento (pasos claros).",
-    "Aplica el procedimiento/concepto con precisión (cálculos/razonamiento correcto).",
-    "Explica y justifica su respuesta con vocabulario matemático adecuado.",
-    "Participa activamente y coopera respetando roles y acuerdos.",
-  ];
+  const [destrezaIndex, setDestrezaIndex] = useState<number>(0);
 
-  if (d.includes("resolver") || d.includes("soluciona") || d.includes("calcular")) {
-    return [
-      "Plantea correctamente datos y estrategia para resolver la situación.",
-      "Realiza cálculos/procedimientos con exactitud y verifica resultados.",
-      "Explica el proceso paso a paso (oral o escrito) usando lenguaje matemático.",
-      "Relaciona la solución con el contexto del problema (interpretación).",
-    ];
-  }
+  // Botón generar
+  const [mostrarPlan, setMostrarPlan] = useState(false);
 
-  if (d.includes("representar") || d.includes("grafic") || d.includes("ubicar")) {
-    return [
-      "Representa información correctamente (tabla, gráfico, recta, diagrama, etc.).",
-      "Identifica elementos clave de la representación (puntos, ejes, escala, partes).",
-      "Explica qué muestra su representación y cómo la construyó.",
-      "Interpreta la representación para responder preguntas del contexto.",
-    ];
+  // =========================
+  // Selecciones curriculares
+  // =========================
+  const objetivo = useMemo(() => {
+    // toma el 1er objetivo del subnivel (puedes cambiar luego a selector)
+    return dataSubnivel?.objetivos?.[0] ?? null;
+  }, [dataSubnivel]);
+
+  const destrezas = useMemo(() => {
+    return dataSubnivel?.destrezas ?? [];
+  }, [dataSubnivel]);
+
+  const destreza = useMemo(() => {
+    return destrezas?.[destrezaIndex] ?? null;
+  }, [destrezas, destrezaIndex]);
+
+  const indicadores = useMemo(() => {
+    return destreza?.indicadores ?? [];
+  }, [destreza]);
+
+  // Si cambias subnivel, resetea índice para evitar "undefined"
+  function onChangeSubnivel(newSubnivel: SubnivelKey) {
+    setSubnivel(newSubnivel);
+    setDestrezaIndex(0);
+    setMostrarPlan(false);
   }
 
-  if (d.includes("comparar") || d.includes("clasificar") || d.includes("ordenar")) {
-    return [
-      "Establece criterios claros de comparación/clasificación/orden.",
-      "Aplica los criterios correctamente en ejemplos variados.",
-      "Justifica por qué clasifica/ordena de esa manera (argumentación).",
-      "Detecta y corrige errores (autoevaluación y mejora).",
-    ];
-  }
+  // =========================
+  // Texto de planificación ERCA
+  // =========================
+  const planTexto = useMemo(() => {
+    if (!objetivo || !destreza) return "";
 
-  return base;
-}
+    const indText =
+      indicadores.length > 0
+        ? indicadores
+            .map((i) => `- ${i.codigo}: ${i.descripcion}`)
+            .join("\n")
+        : "- (No hay indicadores cargados para esta destreza aún)";
 
-function listaCotejo(indicadores: string[]) {
-  return `
-INSTRUMENTO: LISTA DE COTEJO (Marque: Sí / En proceso / No)
+    const temaText = tema?.trim() ? tema.trim() : "(Tema no especificado)";
 
-| # | Indicador | Sí | En proceso | No | Observaciones |
-|---|----------|:--:|:----------:|:--:|--------------|
-${indicadores
-  .map(
-    (it, idx) =>
-      `| ${idx + 1} | ${it} | ☐ | ☐ | ☐ | __________________________ |`
-  )
-  .join("\n")}
-`.trim();
-}
-
-function construirPlanERCA_DUA(inputs: PlanInputs) {
-  const asignatura = safe(inputs.asignatura) || "—";
-  const grado = safe(inputs.grado) || "—";
-  const unidad = safe(inputs.unidad) || "—";
-  const tema = safe(inputs.tema) || "—";
-  const destreza = safe(inputs.destreza) || "—";
-
-  const objetivo = construirObjetivo(inputs);
-  const indicadores = sugerirIndicadores(safe(inputs.destreza));
-  const cotejo = listaCotejo(indicadores);
-
-  const total = inputs.duracionTotal;
-  const tE = inputs.minE;
-  const tR = inputs.minR;
-  const tC = inputs.minC;
-  const tA = inputs.minA;
-
-  const suma = tE + tR + tC + tA;
-
-  return `
-PLANIFICACIÓN MICROCURRICULAR (ERCA + DUA) — BORRADOR INSTITUCIONAL
+    return `PLANIFICACIÓN MICROCURRICULAR (ERCA + DUA) — Currículo Ecuador 2016
+Área: ${matematicaEGB2016.area} | Año: ${matematicaEGB2016.anio}
+Subnivel: ${subnivel}
 
 1) DATOS INFORMATIVOS
 - Asignatura: ${asignatura}
 - Grado/Curso: ${grado}
 - Unidad: ${unidad}
-- Tema: ${tema}
-- Destreza con criterio de desempeño: ${destreza}
+- Tema: ${temaText}
 
-2) TIEMPO
-- Duración total: ${total} minutos
-- Distribución ERCA: E=${tE} min | R=${tR} min | C=${tC} min | A=${tA} min
-${suma !== total ? `⚠ Nota: La suma (E+R+C+A=${suma}) no coincide con la duración total (${total}). Ajusta los minutos.` : ""}
+2) OBJETIVO (Currículo 2016)
+- ${objetivo.codigo}: ${objetivo.descripcion}
 
-3) OBJETIVO DE APRENDIZAJE
-- ${objetivo}
+3) DESTREZA CON CRITERIO DE DESEMPEÑO (Currículo 2016)
+- ${destreza.codigo}: ${destreza.descripcion}
 
-4) ERCA CON APOYOS DUA (METODOLOGÍA)
+4) INDICADORES DE EVALUACIÓN (Currículo 2016)
+${indText}
 
-E — EXPERIENCIA (${tE} min)
-- Activación:
-  • Situación inicial contextual (imagen / mini-video / material concreto) relacionada con el tema: "${tema}".
-  • Preguntas detonantes: ¿Qué observas? ¿Qué sabes del tema? ¿Qué crees que pasará?
-- DUA (Representación): consigna en 2 formatos (oral + escrito) + ejemplo breve.
-- DUA (Acción/Expresión): responder oral / escrito / esquema / dibujo / manipulación.
-- DUA (Compromiso): elección entre 2 ejemplos o trabajo individual/pareja.
+5) ERCA (con apoyos DUA)
 
-R — REFLEXIÓN (${tR} min)
-- Metacognición:
-  • Registro rápido: “Lo que entendí / lo que me costó / mi estrategia”.
-  • Socialización: comparte con compañero/a y mejora una idea.
-- DUA (Representación): organizador (tabla / mapa / lista de pasos).
-- DUA (Acción/Expresión): explicación corta (texto, audio, viñetas).
-- DUA (Compromiso): roles (portavoz, registrador, verificador) para participación equitativa.
+E — EXPERIENCIA
+- Actividad: Situación inicial breve relacionada al tema (“${temaText}”) y a la destreza.
+- DUA (Representación): usar ejemplo visual + consigna oral y escrita.
+- DUA (Acción/Expresión): permitir responder de forma oral, escrita o con organizador gráfico.
+- DUA (Compromiso): elección entre 2 opciones de actividad (individual/parejas).
 
-C — CONCEPTUALIZACIÓN (${tC} min)
-- Construcción:
-  • Modelado docente (pienso en voz alta): concepto/procedimiento del tema "${tema}".
-  • Ejemplos graduados (simple → medio → reto) con pasos numerados.
-  • Práctica guiada con retroalimentación inmediata.
-- DUA (Representación): glosario mínimo + ejemplo resuelto + resaltado de partes clave.
-- DUA (Acción/Expresión): plantilla de pasos / apoyos visuales / material concreto.
-- DUA (Compromiso): “semáforo” (verde-amarillo-rojo) para auto-monitoreo.
+R — REFLEXIÓN
+- Actividad: Preguntas guía: ¿Qué observaste?, ¿qué te resultó difícil?, ¿qué estrategia usaste?
+- DUA (Representación): organizar ideas en tabla/mapa mental.
+- DUA (Acción/Expresión): explicar con audio, texto corto o lista de ideas.
 
-A — APLICACIÓN (${tA} min)
-- Desempeño:
-  • Tarea auténtica:
-    - 1 ejercicio básico + 1 medio + 1 reto (relacionados a la destreza).
-    - O producto breve: mini-infografía / explicación / ejemplo propio.
-- DUA (Representación): criterios claros + ejemplo de producto esperado.
-- DUA (Acción/Expresión): opciones de entrega (escrito / oral / video corto / infografía).
-- DUA (Compromiso): conexión con contexto local (hogar, comunidad, escuela).
+C — CONCEPTUALIZACIÓN
+- Actividad: Construcción del concepto/regla/procedimiento del tema.
+- DUA (Representación): mini-guía paso a paso + ejemplo resuelto.
+- DUA (Acción/Expresión): completar un ejemplo similar con apoyo.
+- DUA (Compromiso): reto opcional “nivel avanzado”.
 
-5) RECURSOS
-- Pizarra / cuaderno / marcadores
-- Hojas de trabajo (impresas o digitales)
-- Material concreto (según tema)
-- Recurso digital opcional: video corto / simulador simple
-
-6) EVIDENCIAS DE APRENDIZAJE
-- Registro en R (metacognición)
-- Resolución guiada en C
-- Producto o ejercicios de A
-
-7) EVALUACIÓN
-7.1 Indicadores (sugeridos)
-${indicadores.map((x, i) => `- ${i + 1}. ${x}`).join("\n")}
-
-7.2 ${cotejo}
-
-8) ADECUACIONES Y ATENCIÓN A LA DIVERSIDAD (DUA)
-- Apoyos generales:
-  • Fragmentar tareas en pasos cortos.
-  • Tiempo adicional y pausas activas.
-  • Banco de palabras / glosario / ejemplo resuelto.
-  • Evaluación flexible: oral/escrita/organizador gráfico.
-
-- Ajustes específicos:
-  • TDAH: instrucciones en 1–2 pasos, temporizador visible, pausas activas, ubicación estratégica, refuerzo positivo inmediato.
-  • Dislexia: letra clara, menos texto por línea, lectura acompañada, consignas con pictogramas, permitir respuesta oral.
-  • TEA: anticipación de rutina, consigna concreta, apoyo visual, opción de trabajo individual, minimizar estímulos.
-  • Baja visión: tamaño de fuente mayor, alto contraste, material impreso ampliado, lectura en voz alta.
-  • Altas capacidades: reto adicional (problema extendido), rol de tutor par, opción de explicar/crear ejemplo propio.
-
-9) TAREA PARA CASA (opcional)
-- 1 ejercicio de refuerzo + 1 ejercicio aplicado a un contexto real (familia/escuela/comunidad).
-`.trim();
-}
-
-export default function Home() {
-  const [asignatura, setAsignatura] = useState("");
-  const [grado, setGrado] = useState("");
-  const [unidad, setUnidad] = useState("");
-  const [tema, setTema] = useState("");
-  const [destreza, setDestreza] = useState("");
-
-  const [duracionTotal, setDuracionTotal] = useState<number>(40);
-  const [minE, setMinE] = useState<number>(10);
-  const [minR, setMinR] = useState<number>(10);
-  const [minC, setMinC] = useState<number>(10);
-  const [minA, setMinA] = useState<number>(10);
-
-  const inputs: PlanInputs = useMemo(
-    () => ({
-      asignatura,
-      grado,
-      unidad,
-      tema,
-      destreza,
-      duracionTotal,
-      minE,
-      minR,
-      minC,
-      minA,
-    }),
-    [asignatura, grado, unidad, tema, destreza, duracionTotal, minE, minR, minC, minA]
-  );
-
-  const [planGenerado, setPlanGenerado] = useState<string>("");
-
-  const generar = () => {
-    const plan = construirPlanERCA_DUA(inputs);
-    setPlanGenerado(plan);
-  };
-
-  const copiar = async () => {
-    if (!planGenerado) return;
-    await navigator.clipboard.writeText(planGenerado);
-    alert("✅ Planificación copiada al portapapeles");
-  };
-
-  const limpiar = () => {
-    setAsignatura("");
-    setGrado("");
-    setUnidad("");
-    setTema("");
-    setDestreza("");
-    setPlanGenerado("");
-  };
-
-  const numInputStyle: React.CSSProperties = { width: 90, padding: 8, marginTop: 6 };
+A — APLICACIÓN
+- Actividad: Resolución de 3 ejercicios graduados (básico–medio–desafío) alineados a la destreza.
+- Evaluación formativa: lista de cotejo basada en el/los indicador(es).
+- DUA (Acción/Expresión): permitir entregar respuesta como procedimiento escrito, explicación oral o captura/foto del cuaderno.
+`;
+  }, [asignatura, grado, unidad, tema, subnivel, objetivo, destreza, indicadores]);
 
   return (
-    <main style={{ padding: "2rem", fontFamily: "Arial, sans-serif", maxWidth: 1100 }}>
-      <h1 style={{ marginBottom: 6 }}>📘 Planificador ERCA Ecuador</h1>
+    <main style={{ padding: "2rem", fontFamily: "Arial, sans-serif" }}>
+      <h1 style={{ marginBottom: "0.25rem" }}>📘 Planificador ERCA Ecuador</h1>
       <p style={{ marginTop: 0 }}>
-        Genera planificación con estructura <b>ERCA</b> + apoyos <b>DUA</b> + evaluación (indicadores y lista de cotejo).
+        Genera una planificación base con estructura <b>ERCA</b> y apoyos <b>DUA</b>, usando datos reales (Currículo 2016) desde tu archivo local.
       </p>
 
       <hr />
 
-      <h2 style={{ marginBottom: 10 }}>🧑‍🏫 Datos</h2>
+      <h2>👩‍🏫 Datos del docente</h2>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, maxWidth: 900 }}>
-        <label>
+      <div style={{ maxWidth: 720 }}>
+        <label style={{ display: "block", marginBottom: 10 }}>
           Asignatura:
-          <input value={asignatura} onChange={(e) => setAsignatura(e.target.value)} type="text" style={{ width: "100%", padding: 8, marginTop: 6 }} />
-        </label>
-
-        <label>
-          Grado / Curso:
-          <input value={grado} onChange={(e) => setGrado(e.target.value)} type="text" style={{ width: "100%", padding: 8, marginTop: 6 }} />
-        </label>
-
-        <label>
-          Unidad:
-          <input value={unidad} onChange={(e) => setUnidad(e.target.value)} type="text" style={{ width: "100%", padding: 8, marginTop: 6 }} />
-        </label>
-
-        <label>
-          Tema:
-          <input value={tema} onChange={(e) => setTema(e.target.value)} type="text" style={{ width: "100%", padding: 8, marginTop: 6 }} placeholder="Ej: Fracciones equivalentes" />
-        </label>
-
-        <label style={{ gridColumn: "1 / -1" }}>
-          Destreza con criterio de desempeño:
-          <textarea value={destreza} onChange={(e) => setDestreza(e.target.value)} style={{ width: "100%", padding: 8, marginTop: 6, minHeight: 90 }} />
-        </label>
-      </div>
-
-      <h2 style={{ marginTop: 18, marginBottom: 10 }}>⏱️ Tiempo</h2>
-      <div style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "end" }}>
-        <label>
-          Total (min):
           <input
-            type="number"
-            value={duracionTotal}
-            onChange={(e) => setDuracionTotal(Number(e.target.value || 0))}
-            style={numInputStyle}
+            type="text"
+            value={asignatura}
+            onChange={(e) => setAsignatura(e.target.value)}
+            style={{ width: "100%", padding: 8, marginTop: 6 }}
           />
         </label>
 
-        <label>
-          E (min):
-          <input type="number" value={minE} onChange={(e) => setMinE(Number(e.target.value || 0))} style={numInputStyle} />
+        <label style={{ display: "block", marginBottom: 10 }}>
+          Grado / Curso:
+          <input
+            type="text"
+            value={grado}
+            onChange={(e) => setGrado(e.target.value)}
+            style={{ width: "100%", padding: 8, marginTop: 6 }}
+          />
         </label>
 
-        <label>
-          R (min):
-          <input type="number" value={minR} onChange={(e) => setMinR(Number(e.target.value || 0))} style={numInputStyle} />
+        <label style={{ display: "block", marginBottom: 10 }}>
+          Unidad:
+          <input
+            type="text"
+            value={unidad}
+            onChange={(e) => setUnidad(e.target.value)}
+            style={{ width: "100%", padding: 8, marginTop: 6 }}
+          />
         </label>
 
-        <label>
-          C (min):
-          <input type="number" value={minC} onChange={(e) => setMinC(Number(e.target.value || 0))} style={numInputStyle} />
+        <label style={{ display: "block", marginBottom: 10 }}>
+          Tema (opcional):
+          <input
+            type="text"
+            value={tema}
+            onChange={(e) => setTema(e.target.value)}
+            placeholder="Ej: Fracciones equivalentes"
+            style={{ width: "100%", padding: 8, marginTop: 6 }}
+          />
         </label>
 
-        <label>
-          A (min):
-          <input type="number" value={minA} onChange={(e) => setMinA(Number(e.target.value || 0))} style={numInputStyle} />
-        </label>
-      </div>
+        <hr style={{ margin: "16px 0" }} />
 
-      <div style={{ marginTop: 14, display: "flex", gap: 10, flexWrap: "wrap" }}>
-        <button onClick={generar} style={{ padding: "10px 14px", cursor: "pointer" }}>
+        <h2>📌 Currículo 2016 (Matemática)</h2>
+
+        <label style={{ display: "block", marginBottom: 10 }}>
+          Subnivel:
+          <select
+            value={subnivel}
+            onChange={(e) => onChangeSubnivel(e.target.value as SubnivelKey)}
+            style={{ width: "100%", padding: 8, marginTop: 6 }}
+          >
+            {subniveles.map((k) => (
+              <option key={k} value={k}>
+                {k}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label style={{ display: "block", marginBottom: 10 }}>
+          Destreza (real):
+          <select
+            value={destrezaIndex}
+            onChange={(e) => {
+              setDestrezaIndex(Number(e.target.value));
+              setMostrarPlan(false);
+            }}
+            style={{ width: "100%", padding: 8, marginTop: 6 }}
+          >
+            {destrezas.length === 0 && <option value={0}>(No hay destrezas cargadas)</option>}
+            {destrezas.map((d, idx) => (
+              <option key={`${d.codigo}-${idx}`} value={idx}>
+                {d.codigo} — {d.descripcion.slice(0, 80)}
+                {d.descripcion.length > 80 ? "..." : ""}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <button
+          type="button"
+          onClick={() => setMostrarPlan(true)}
+          style={{
+            padding: "10px 14px",
+            fontWeight: "bold",
+            cursor: "pointer",
+            border: "2px solid #000",
+            background: "#fff",
+          }}
+        >
           Generar planificación (ERCA)
         </button>
-        <button onClick={copiar} disabled={!planGenerado} style={{ padding: "10px 14px", cursor: "pointer" }}>
-          Copiar
-        </button>
-        <button onClick={limpiar} style={{ padding: "10px 14px", cursor: "pointer" }}>
-          Limpiar
-        </button>
       </div>
 
-      <hr style={{ marginTop: 18 }} />
+      <hr style={{ margin: "20px 0" }} />
 
-      <h2 style={{ marginBottom: 10 }}>📄 Planificación generada</h2>
+      <h2>📄 Planificación generada</h2>
 
-      {!planGenerado ? (
+      {!mostrarPlan ? (
         <p style={{ opacity: 0.8 }}>
-          Completa los campos y presiona <b>Generar planificación</b>.
+          Completa los campos y presiona <b>“Generar planificación (ERCA)”</b>.
         </p>
       ) : (
-        <pre
+        <div
           style={{
-            whiteSpace: "pre-wrap",
-            background: "#f5f5f5",
+            maxWidth: 920,
+            border: "1px solid #ddd",
+            borderRadius: 8,
             padding: 14,
-            borderRadius: 10,
-            border: "1px solid #e0e0e0",
+            background: "#fafafa",
+            whiteSpace: "pre-wrap",
             lineHeight: 1.35,
           }}
         >
-          {planGenerado}
-        </pre>
+          {planTexto}
+        </div>
       )}
     </main>
   );
