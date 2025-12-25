@@ -6,120 +6,189 @@ type PlanInputs = {
   asignatura: string;
   grado: string;
   unidad: string;
+  tema: string;
   destreza: string;
+  duracionTotal: number; // minutos
+  minE: number;
+  minR: number;
+  minC: number;
+  minA: number;
 };
 
-function construirObjetivo({ asignatura, grado, unidad, destreza }: PlanInputs) {
-  const d = (destreza || "").trim();
-  const base = d
-    ? `Al finalizar la clase, el estudiante desarrollará la destreza propuesta: “${d}”, `
-    : `Al finalizar la clase, el estudiante desarrollará la destreza propuesta, `;
-  return (
-    base +
-    `mediante actividades estructuradas en ERCA, utilizando apoyos DUA (representación, acción/expresión y compromiso).`
-  );
+function safe(v: string) {
+  return (v || "").trim();
+}
+
+function construirObjetivo({ destreza }: PlanInputs) {
+  const d = safe(destreza);
+  if (!d) {
+    return `Al finalizar la clase, el estudiante desarrollará la destreza propuesta mediante actividades estructuradas en ERCA, con apoyos DUA (representación, acción/expresión y compromiso).`;
+  }
+  return `Al finalizar la clase, el estudiante desarrollará la destreza propuesta: “${d}”, mediante actividades estructuradas en ERCA, con apoyos DUA (representación, acción/expresión y compromiso).`;
+}
+
+function sugerirIndicadores(destreza: string) {
+  const d = destreza.toLowerCase();
+
+  // Heurística simple por verbos frecuentes (puedes ajustar cuando quieras)
+  const base = [
+    "Comprende la consigna y organiza el procedimiento (pasos claros).",
+    "Aplica el procedimiento/concepto con precisión (cálculos/razonamiento correcto).",
+    "Explica y justifica su respuesta con vocabulario matemático adecuado.",
+    "Participa activamente y coopera respetando roles y acuerdos.",
+  ];
+
+  if (d.includes("resolver") || d.includes("soluciona") || d.includes("calcular")) {
+    return [
+      "Plantea correctamente datos y estrategia para resolver la situación.",
+      "Realiza cálculos/procedimientos con exactitud y verifica resultados.",
+      "Explica el proceso paso a paso (oral o escrito) usando lenguaje matemático.",
+      "Relaciona la solución con el contexto del problema (interpretación).",
+    ];
+  }
+
+  if (d.includes("representar") || d.includes("grafic") || d.includes("ubicar")) {
+    return [
+      "Representa información correctamente (tabla, gráfico, recta, diagrama, etc.).",
+      "Identifica elementos clave de la representación (puntos, ejes, escala, partes).",
+      "Explica qué muestra su representación y cómo la construyó.",
+      "Interpreta la representación para responder preguntas del contexto.",
+    ];
+  }
+
+  if (d.includes("comparar") || d.includes("clasificar") || d.includes("ordenar")) {
+    return [
+      "Establece criterios claros de comparación/clasificación/orden.",
+      "Aplica los criterios correctamente en ejemplos variados.",
+      "Justifica por qué clasifica/ordena de esa manera (argumentación).",
+      "Detecta y corrige errores (autoevaluación y mejora).",
+    ];
+  }
+
+  return base;
+}
+
+function listaCotejo(indicadores: string[]) {
+  return `
+INSTRUMENTO: LISTA DE COTEJO (Marque: Sí / En proceso / No)
+
+| # | Indicador | Sí | En proceso | No | Observaciones |
+|---|----------|:--:|:----------:|:--:|--------------|
+${indicadores
+  .map(
+    (it, idx) =>
+      `| ${idx + 1} | ${it} | ☐ | ☐ | ☐ | __________________________ |`
+  )
+  .join("\n")}
+`.trim();
 }
 
 function construirPlanERCA_DUA(inputs: PlanInputs) {
-  const { asignatura, grado, unidad, destreza } = inputs;
+  const asignatura = safe(inputs.asignatura) || "—";
+  const grado = safe(inputs.grado) || "—";
+  const unidad = safe(inputs.unidad) || "—";
+  const tema = safe(inputs.tema) || "—";
+  const destreza = safe(inputs.destreza) || "—";
 
   const objetivo = construirObjetivo(inputs);
+  const indicadores = sugerirIndicadores(safe(inputs.destreza));
+  const cotejo = listaCotejo(indicadores);
 
-  // Plantilla ERCA + DUA (texto listo para copiar/pegar)
+  const total = inputs.duracionTotal;
+  const tE = inputs.minE;
+  const tR = inputs.minR;
+  const tC = inputs.minC;
+  const tA = inputs.minA;
+
+  const suma = tE + tR + tC + tA;
+
   return `
-PLANIFICACIÓN MICROCURRICULAR (ERCA + DUA)
+PLANIFICACIÓN MICROCURRICULAR (ERCA + DUA) — BORRADOR INSTITUCIONAL
 
 1) DATOS INFORMATIVOS
-- Asignatura: ${asignatura || "—"}
-- Grado/Curso: ${grado || "—"}
-- Unidad: ${unidad || "—"}
-- Destreza con criterio de desempeño: ${destreza || "—"}
+- Asignatura: ${asignatura}
+- Grado/Curso: ${grado}
+- Unidad: ${unidad}
+- Tema: ${tema}
+- Destreza con criterio de desempeño: ${destreza}
 
-2) OBJETIVO DE APRENDIZAJE
+2) TIEMPO
+- Duración total: ${total} minutos
+- Distribución ERCA: E=${tE} min | R=${tR} min | C=${tC} min | A=${tA} min
+${suma !== total ? `⚠ Nota: La suma (E+R+C+A=${suma}) no coincide con la duración total (${total}). Ajusta los minutos.` : ""}
+
+3) OBJETIVO DE APRENDIZAJE
 - ${objetivo}
 
-3) ESTRATEGIA METODOLÓGICA: ERCA CON APOYOS DUA
+4) ERCA CON APOYOS DUA (METODOLOGÍA)
 
-E — EXPERIENCIA (Activación y contextualización)
-- Propósito: activar conocimientos previos y conectar con una situación real.
-- Actividad (inicio breve):
-  • Presenta un caso/situación contextual (ej.: problema cotidiano, imagen, mini video, material concreto).
-  • Pregunta detonante: “¿Qué observas? ¿Qué crees que pasará? ¿Por qué?”
-- DUA (Representación):
-  • Presenta la consigna en 2 formatos: oral + escrito (y/o pictogramas/ejemplo resuelto).
-- DUA (Acción y Expresión):
-  • Respuesta alternativa: oral / escrita / esquema / dibujo / manipulación de material.
-- DUA (Compromiso):
-  • Ofrece elección: trabajar individual o en pareja; escoger entre 2 ejemplos.
+E — EXPERIENCIA (${tE} min)
+- Activación:
+  • Situación inicial contextual (imagen / mini-video / material concreto) relacionada con el tema: "${tema}".
+  • Preguntas detonantes: ¿Qué observas? ¿Qué sabes del tema? ¿Qué crees que pasará?
+- DUA (Representación): consigna en 2 formatos (oral + escrito) + ejemplo breve.
+- DUA (Acción/Expresión): responder oral / escrito / esquema / dibujo / manipulación.
+- DUA (Compromiso): elección entre 2 ejemplos o trabajo individual/pareja.
 
-R — REFLEXIÓN (Metacognición y socialización)
-- Propósito: analizar estrategias, errores y hallazgos.
-- Actividad:
-  • Conversatorio guiado + registro breve.
-  • Preguntas guía: “¿Qué fue fácil/difícil? ¿Qué estrategia usaste? ¿Qué cambiarías?”
-- DUA (Representación):
-  • Organizador gráfico simple (tabla, mapa, lista de pasos).
-- DUA (Acción y Expresión):
-  • Explicar con audio (si aplica), texto corto o lista de ideas.
-- DUA (Compromiso):
-  • Roles: portavoz, registrador, verificador (para participación equitativa).
+R — REFLEXIÓN (${tR} min)
+- Metacognición:
+  • Registro rápido: “Lo que entendí / lo que me costó / mi estrategia”.
+  • Socialización: comparte con compañero/a y mejora una idea.
+- DUA (Representación): organizador (tabla / mapa / lista de pasos).
+- DUA (Acción/Expresión): explicación corta (texto, audio, viñetas).
+- DUA (Compromiso): roles (portavoz, registrador, verificador) para participación equitativa.
 
-C — CONCEPTUALIZACIÓN (Construcción del aprendizaje)
-- Propósito: formalizar el concepto/procedimiento y lenguaje matemático/científico.
-- Actividad:
-  • Presenta el concepto/regla/pasos con ejemplos graduados (de simple a complejo).
-  • Modelado del docente: “Pienso en voz alta” mostrando cómo se resuelve.
-  • Mini práctica guiada: 2–3 ítems con acompañamiento.
-- DUA (Representación):
-  • Ejemplo resuelto + pasos numerados.
-  • Vocabulario clave (glosario corto).
-  • Apoyo visual: resaltado de partes importantes.
-- DUA (Acción y Expresión):
-  • Plantilla de resolución (pasos) para estudiantes que lo requieran.
-  • Uso de calculadora/tabla/material concreto según el tema.
-- DUA (Compromiso):
-  • Retroalimentación inmediata: “semáforo” (verde/amarillo/rojo) o pulgares.
+C — CONCEPTUALIZACIÓN (${tC} min)
+- Construcción:
+  • Modelado docente (pienso en voz alta): concepto/procedimiento del tema "${tema}".
+  • Ejemplos graduados (simple → medio → reto) con pasos numerados.
+  • Práctica guiada con retroalimentación inmediata.
+- DUA (Representación): glosario mínimo + ejemplo resuelto + resaltado de partes clave.
+- DUA (Acción/Expresión): plantilla de pasos / apoyos visuales / material concreto.
+- DUA (Compromiso): “semáforo” (verde-amarillo-rojo) para auto-monitoreo.
 
-A — APLICACIÓN (Transferencia y desempeño)
-- Propósito: aplicar lo aprendido en una tarea auténtica (producto o resolución).
-- Actividad:
-  • Tarea de desempeño (independiente o en equipos):
-    - Resolver 3 ejercicios: (1 básico, 1 medio, 1 reto) relacionados con la destreza.
-    - O elaborar un producto breve (afiche, explicación, mini informe, ejemplo propio).
-- DUA (Representación):
-  • Presenta la tarea con ejemplo + criterios claros.
-- DUA (Acción y Expresión):
-  • Opciones de producto: resolución escrita / video corto / exposición / infografía.
-- DUA (Compromiso):
-  • Relevancia: conecta con contexto local (hogar, comunidad, escuela).
+A — APLICACIÓN (${tA} min)
+- Desempeño:
+  • Tarea auténtica:
+    - 1 ejercicio básico + 1 medio + 1 reto (relacionados a la destreza).
+    - O producto breve: mini-infografía / explicación / ejemplo propio.
+- DUA (Representación): criterios claros + ejemplo de producto esperado.
+- DUA (Acción/Expresión): opciones de entrega (escrito / oral / video corto / infografía).
+- DUA (Compromiso): conexión con contexto local (hogar, comunidad, escuela).
 
-4) RECURSOS
+5) RECURSOS
 - Pizarra / cuaderno / marcadores
-- Material concreto (según tema) / fichas / hojas de trabajo
-- Recurso digital opcional: video corto o simulador simple
+- Hojas de trabajo (impresas o digitales)
+- Material concreto (según tema)
+- Recurso digital opcional: video corto / simulador simple
 
-5) EVALUACIÓN (Formativa y sumativa)
-- Evidencias:
-  • Participación en E y R
-  • Resolución guiada en C
-  • Tarea de desempeño en A
-- Instrumento sugerido:
-  • Lista de cotejo (rápida) + retroalimentación
-- Criterios (borrador):
-  1) Comprende la consigna y organiza el procedimiento.
-  2) Aplica el concepto/pasos correctamente.
-  3) Justifica o explica su respuesta con claridad.
-  4) Participa y coopera respetando roles.
+6) EVIDENCIAS DE APRENDIZAJE
+- Registro en R (metacognición)
+- Resolución guiada en C
+- Producto o ejercicios de A
 
-6) ADECUACIONES / ATENCIÓN A LA DIVERSIDAD (DUA)
-- Apoyos:
-  • Tiempo adicional y fragmentación de la tarea.
-  • Ejemplos con menor carga cognitiva.
-  • Andamiaje: plantilla de pasos, pistas, banco de palabras.
-  • Evaluación flexible: oral, escrita o con organizador gráfico.
+7) EVALUACIÓN
+7.1 Indicadores (sugeridos)
+${indicadores.map((x, i) => `- ${i + 1}. ${x}`).join("\n")}
 
-7) TAREA PARA CASA (opcional)
-- 1 ejercicio de refuerzo + 1 ejercicio de aplicación en contexto (vida diaria).
+7.2 ${cotejo}
+
+8) ADECUACIONES Y ATENCIÓN A LA DIVERSIDAD (DUA)
+- Apoyos generales:
+  • Fragmentar tareas en pasos cortos.
+  • Tiempo adicional y pausas activas.
+  • Banco de palabras / glosario / ejemplo resuelto.
+  • Evaluación flexible: oral/escrita/organizador gráfico.
+
+- Ajustes específicos:
+  • TDAH: instrucciones en 1–2 pasos, temporizador visible, pausas activas, ubicación estratégica, refuerzo positivo inmediato.
+  • Dislexia: letra clara, menos texto por línea, lectura acompañada, consignas con pictogramas, permitir respuesta oral.
+  • TEA: anticipación de rutina, consigna concreta, apoyo visual, opción de trabajo individual, minimizar estímulos.
+  • Baja visión: tamaño de fuente mayor, alto contraste, material impreso ampliado, lectura en voz alta.
+  • Altas capacidades: reto adicional (problema extendido), rol de tutor par, opción de explicar/crear ejemplo propio.
+
+9) TAREA PARA CASA (opcional)
+- 1 ejercicio de refuerzo + 1 ejercicio aplicado a un contexto real (familia/escuela/comunidad).
 `.trim();
 }
 
@@ -127,11 +196,29 @@ export default function Home() {
   const [asignatura, setAsignatura] = useState("");
   const [grado, setGrado] = useState("");
   const [unidad, setUnidad] = useState("");
+  const [tema, setTema] = useState("");
   const [destreza, setDestreza] = useState("");
 
+  const [duracionTotal, setDuracionTotal] = useState<number>(40);
+  const [minE, setMinE] = useState<number>(10);
+  const [minR, setMinR] = useState<number>(10);
+  const [minC, setMinC] = useState<number>(10);
+  const [minA, setMinA] = useState<number>(10);
+
   const inputs: PlanInputs = useMemo(
-    () => ({ asignatura, grado, unidad, destreza }),
-    [asignatura, grado, unidad, destreza]
+    () => ({
+      asignatura,
+      grado,
+      unidad,
+      tema,
+      destreza,
+      duracionTotal,
+      minE,
+      minR,
+      minC,
+      minA,
+    }),
+    [asignatura, grado, unidad, tema, destreza, duracionTotal, minE, minR, minC, minA]
   );
 
   const [planGenerado, setPlanGenerado] = useState<string>("");
@@ -141,73 +228,91 @@ export default function Home() {
     setPlanGenerado(plan);
   };
 
-  const limpiar = () => {
-    setAsignatura("");
-    setGrado("");
-    setUnidad("");
-    setDestreza("");
-    setPlanGenerado("");
-  };
-
   const copiar = async () => {
     if (!planGenerado) return;
     await navigator.clipboard.writeText(planGenerado);
     alert("✅ Planificación copiada al portapapeles");
   };
 
+  const limpiar = () => {
+    setAsignatura("");
+    setGrado("");
+    setUnidad("");
+    setTema("");
+    setDestreza("");
+    setPlanGenerado("");
+  };
+
+  const numInputStyle: React.CSSProperties = { width: 90, padding: 8, marginTop: 6 };
+
   return (
-    <main style={{ padding: "2rem", fontFamily: "Arial, sans-serif", maxWidth: 980 }}>
+    <main style={{ padding: "2rem", fontFamily: "Arial, sans-serif", maxWidth: 1100 }}>
       <h1 style={{ marginBottom: 6 }}>📘 Planificador ERCA Ecuador</h1>
       <p style={{ marginTop: 0 }}>
-        Genera una planificación base con estructura <b>ERCA</b> y apoyos <b>DUA</b>.
+        Genera planificación con estructura <b>ERCA</b> + apoyos <b>DUA</b> + evaluación (indicadores y lista de cotejo).
       </p>
 
       <hr />
 
-      <h2 style={{ marginBottom: 10 }}>🧑‍🏫 Datos del docente</h2>
+      <h2 style={{ marginBottom: 10 }}>🧑‍🏫 Datos</h2>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, maxWidth: 800 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, maxWidth: 900 }}>
         <label>
           Asignatura:
-          <input
-            value={asignatura}
-            onChange={(e) => setAsignatura(e.target.value)}
-            type="text"
-            style={{ width: "100%", padding: 8, marginTop: 6 }}
-            placeholder="Ej: Matemática"
-          />
+          <input value={asignatura} onChange={(e) => setAsignatura(e.target.value)} type="text" style={{ width: "100%", padding: 8, marginTop: 6 }} />
         </label>
 
         <label>
           Grado / Curso:
-          <input
-            value={grado}
-            onChange={(e) => setGrado(e.target.value)}
-            type="text"
-            style={{ width: "100%", padding: 8, marginTop: 6 }}
-            placeholder="Ej: 7 EGB"
-          />
+          <input value={grado} onChange={(e) => setGrado(e.target.value)} type="text" style={{ width: "100%", padding: 8, marginTop: 6 }} />
         </label>
 
         <label>
           Unidad:
-          <input
-            value={unidad}
-            onChange={(e) => setUnidad(e.target.value)}
-            type="text"
-            style={{ width: "100%", padding: 8, marginTop: 6 }}
-            placeholder="Ej: 2"
-          />
+          <input value={unidad} onChange={(e) => setUnidad(e.target.value)} type="text" style={{ width: "100%", padding: 8, marginTop: 6 }} />
+        </label>
+
+        <label>
+          Tema:
+          <input value={tema} onChange={(e) => setTema(e.target.value)} type="text" style={{ width: "100%", padding: 8, marginTop: 6 }} placeholder="Ej: Fracciones equivalentes" />
         </label>
 
         <label style={{ gridColumn: "1 / -1" }}>
           Destreza con criterio de desempeño:
-          <textarea
-            value={destreza}
-            onChange={(e) => setDestreza(e.target.value)}
-            style={{ width: "100%", padding: 8, marginTop: 6, minHeight: 90 }}
-            placeholder="Pega aquí la destreza del Currículo 2016 (con criterio)."
+          <textarea value={destreza} onChange={(e) => setDestreza(e.target.value)} style={{ width: "100%", padding: 8, marginTop: 6, minHeight: 90 }} />
+        </label>
+      </div>
+
+      <h2 style={{ marginTop: 18, marginBottom: 10 }}>⏱️ Tiempo</h2>
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "end" }}>
+        <label>
+          Total (min):
+          <input
+            type="number"
+            value={duracionTotal}
+            onChange={(e) => setDuracionTotal(Number(e.target.value || 0))}
+            style={numInputStyle}
           />
+        </label>
+
+        <label>
+          E (min):
+          <input type="number" value={minE} onChange={(e) => setMinE(Number(e.target.value || 0))} style={numInputStyle} />
+        </label>
+
+        <label>
+          R (min):
+          <input type="number" value={minR} onChange={(e) => setMinR(Number(e.target.value || 0))} style={numInputStyle} />
+        </label>
+
+        <label>
+          C (min):
+          <input type="number" value={minC} onChange={(e) => setMinC(Number(e.target.value || 0))} style={numInputStyle} />
+        </label>
+
+        <label>
+          A (min):
+          <input type="number" value={minA} onChange={(e) => setMinA(Number(e.target.value || 0))} style={numInputStyle} />
         </label>
       </div>
 
@@ -229,7 +334,7 @@ export default function Home() {
 
       {!planGenerado ? (
         <p style={{ opacity: 0.8 }}>
-          Ingresa los datos y presiona <b>Generar planificación</b> para ver el resultado aquí.
+          Completa los campos y presiona <b>Generar planificación</b>.
         </p>
       ) : (
         <pre
