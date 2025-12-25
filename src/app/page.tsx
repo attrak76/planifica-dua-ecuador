@@ -1,66 +1,85 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+
+import { useState } from "react";
 
 export default function Home() {
+  const [asignatura, setAsignatura] = useState("");
+  const [grado, setGrado] = useState("");
+  const [unidad, setUnidad] = useState("");
+  const [destreza, setDestreza] = useState("");
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main style={{ padding: "2rem", fontFamily: "Arial" }}>
+      <h1>📘 Planificador DUA Ecuador</h1>
+
+      <p>
+        Aplicación web para generar planificaciones basadas en el Currículo de
+        Educación del Ecuador con enfoque DUA.
+      </p>
+
+      <hr />
+
+      <h2>👩‍🏫 Datos del docente</h2>
+
+      <form style={{ maxWidth: "500px" }}>
+        <label>
+          Asignatura:
+          <input
+            type="text"
+            value={asignatura}
+            onChange={(e) => setAsignatura(e.target.value)}
+            style={{ width: "100%", marginBottom: "1rem" }}
+          />
+        </label>
+
+        <label>
+          Grado / Curso:
+          <input
+            type="text"
+            value={grado}
+            onChange={(e) => setGrado(e.target.value)}
+            style={{ width: "100%", marginBottom: "1rem" }}
+          />
+        </label>
+
+        <label>
+          Unidad:
+          <input
+            type="text"
+            value={unidad}
+            onChange={(e) => setUnidad(e.target.value)}
+            style={{ width: "100%", marginBottom: "1rem" }}
+          />
+        </label>
+
+        <label>
+          Destreza con criterio de desempeño:
+          <textarea
+            value={destreza}
+            onChange={(e) => setDestreza(e.target.value)}
+            style={{ width: "100%", marginBottom: "1rem" }}
+          />
+        </label>
+
+        <button
+          type="button"
+          onClick={() => {
+            alert(
+              `Asignatura: ${asignatura}\nGrado: ${grado}\nUnidad: ${unidad}\nDestreza: ${destreza}`
+            );
+          }}
+        >
+          Generar planificación
+        </button>
+      </form>
+
+      <hr />
+
+      <h2>🎯 Objetivo</h2>
+      <p>
+        Generar automáticamente una planificación con destrezas, actividades y
+        evaluación alineadas al DUA.
+      </p>
+    </main>
   );
 }
