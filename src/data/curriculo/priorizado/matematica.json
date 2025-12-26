@@ -1,52 +1,103 @@
 {
   "meta": {
     "area": "Matemática",
-    "fuente": "MINEDUC Ecuador — Currículo Priorizado por Competencias"
+    "fuente": "MINEDUC Ecuador – Currículo Priorizado por Competencias"
   },
   "subniveles": {
     "EGB Preparatoria": {
       "objetivos": [
-        { "codigo": "OP-1", "descripcion": "Objetivo priorizado (pegar del currículo vigente)." }
+        {
+          "codigo": "O.M.1.1",
+          "descripcion": "Reconocer la posición y atributos de colecciones de objetos, mediante la identificación de patrones observables, a su alrededor, para la descripción de su entorno."
+        },
+        {
+          "codigo": "O.M.1.2",
+          "descripcion": "Comprender la noción de cantidad, las relaciones de orden y la noción de adición y sustracción, con el uso de material concreto para desarrollar su pensamiento y resolver problemas de la vida cotidiana."
+        },
+        {
+          "codigo": "O.M.1.3",
+          "descripcion": "Reconocer, comparar y describir características de cuerpos y figuras geométricas de su entorno inmediato, para lograr una mejor comprensión de su medio."
+        },
+        {
+          "codigo": "O.M.1.4",
+          "descripcion": "Explicar los procesos de medición estimación y/o comparación de longitudes, capacidades, masas mediante el uso de unidades no convencionales en la resolución de problemas."
+        },
+        {
+          "codigo": "O.M.1.5",
+          "descripcion": "Reconocer situaciones cotidianas de su entorno en las que existan problemas, cuya solución, requiera aplicar las medidas monetarias y de tiempo."
+        },
+        {
+          "codigo": "O.M.1.6",
+          "descripcion": "Comunicar ideas sobre la interpretación de su entorno (recolección de información) y explicar de manera verbal y/o gráfica (pictogramas) los procesos utilizados en la recolección de datos y en la resolución de problemas cotidianos sencillos."
+        }
       ],
       "destrezas": [
         {
-          "codigo": "MP-1",
-          "descripcion": "Destreza priorizada (pegar del currículo vigente).",
+          "codigo": "M.1.4.1",
+          "descripcion": "Reconocer los colores primarios: rojo, amarillo y azul; los colores blanco y negro y los colores secundarios, en objetos del entorno.",
           "indicadores": [
-            { "codigo": "IMP-1", "descripcion": "Indicador priorizado (pegar del currículo vigente)." }
+            {
+              "codigo": "I.M.1.1.1",
+              "descripcion": "Compara y distingue objetos según su color, tamaño, longitud, textura y forma en situaciones cotidianas."
+            }
+          ]
+        },
+        {
+          "codigo": "M.1.4.2",
+          "descripcion": "Reconocer la posición de objetos del entorno: derecha, izquierda.",
+          "indicadores": [
+            {
+              "codigo": "I.M.1.1.2",
+              "descripcion": "Describe la ubicación de los objetos del entorno."
+            }
+          ]
+        },
+        {
+          "codigo": "M.1.4.4",
+          "descripcion": "Distinguir la ubicación de objetos del entorno según las nociones arriba/ abajo, delante/atrás y encima/debajo.",
+          "indicadores": [
+            {
+              "codigo": "I.M.1.1.2",
+              "descripcion": "Describe la ubicación de los objetos del entorno."
+            }
+          ]
+        },
+        {
+          "codigo": "M.1.4.5",
+          "descripcion": "Reconocer las semejanzas y diferencias entre los objetos del entorno de acuerdo con su forma y sus características físicas (color, tamaño y longitud).",
+          "indicadores": [
+            {
+              "codigo": "I.M.1.1.1",
+              "descripcion": "Compara y distingue objetos según su color, tamaño, longitud, textura y forma en situaciones cotidianas."
+            }
+          ]
+        },
+        {
+          "codigo": "M.1.4.6",
+          "descripcion": "Agrupar colecciones de objetos del entorno según sus características físicas: color, tamaño (grande/pequeño), longitud (alto/bajo y largo/corto).",
+          "indicadores": [
+            {
+              "codigo": "I.M.1.1.1",
+              "descripcion": "Compara y distingue objetos según su color, tamaño, longitud, textura y forma en situaciones cotidianas."
+            }
+          ]
+        },
+        {
+          "codigo": "M.1.4.8",
+          "descripcion": "Describir y reproducir patrones con objetos del entorno por color, forma, tamaño, longitud o con siluetas de figuras geométricas, sonidos y movimientos.",
+          "indicadores": [
+            {
+              "codigo": "I.M.1.1.3",
+              "descripcion": "Construye series utilizando objetos del entorno, sonidos, movimientos, figuras y cuerpos geométricos y agrupaciones de elementos."
+            }
           ]
         }
       ]
     },
+
     "EGB Elemental": { "objetivos": [], "destrezas": [] },
-    "EGB Media": {
-      "objetivos": [
-        { "codigo": "OM-EM-1", "descripcion": "Objetivo de EGB Media (pegar del currículo vigente)." }
-      ],
-      "destrezas": [
-        {
-          "codigo": "M.EM.1",
-          "descripcion": "Destreza de EGB Media (pegar del currículo vigente).",
-          "indicadores": [
-            { "codigo": "I.EM.1", "descripcion": "Indicador de EGB Media (pegar del currículo vigente)." }
-          ]
-        }
-      ]
-    },
+    "EGB Media": { "objetivos": [], "destrezas": [] },
     "EGB Superior": { "objetivos": [], "destrezas": [] },
-    "BGU": {
-      "objetivos": [
-        { "codigo": "OM-BGU-1", "descripcion": "Objetivo de BGU (pegar del currículo vigente)." }
-      ],
-      "destrezas": [
-        {
-          "codigo": "M.BGU.1",
-          "descripcion": "Destreza de BGU (pegar del currículo vigente).",
-          "indicadores": [
-            { "codigo": "I.BGU.1", "descripcion": "Indicador de BGU (pegar del currículo vigente)." }
-          ]
-        }
-      ]
-    }
+    "BGU": { "objetivos": [], "destrezas": [] }
   }
 }
