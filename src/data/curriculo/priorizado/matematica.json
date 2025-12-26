@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "area": "Matemática",
+    "fuente": "Currículo Priorizado por Competencias - MINEDUC Ecuador"
+  },
+  "subniveles": {
+    "EGB Preparatoria": {
+      "objetivos": [ ... ],
+      "destrezas": [ ... ]
+    },
+    "EGB Elemental": {
+      "objetivos": [ ... ],
+      "destrezas": [ ... ]
+    },
+    "EGB Media": {
+      "objetivos": [ ... ],
+      "destrezas": [ ... ]
+    },
+    "EGB Superior": {
+      "objetivos": [ ... ],
+      "destrezas": [ ... ]
+    },
+    "BGU": {
+      "objetivos": [ ... ],
+      "destrezas": [ ... ]
+    }
+  }
+}
