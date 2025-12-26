@@ -1,189 +1,169 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import {
-  matematicaPriorizado,
-  filtroDestrezasPorSubnivel,
-  type Destreza,
-} from "@/data/curriculo/priorizado/matematica-egb";
+import { matematicaPriorizado, prefijoPorSubnivel } from "@/data/curriculo/priorizado/matematica-egb";
 
-type PlanInputs = {
-  asignatura: string;
-  nivel: "EGB" | "BGU";
-  grado: string;
-  unidad: string;
-  tema: string;
+type Nivel = "EGB" | "BGU";
 
-  subnivel: string;
-  destrezaCodigo: string;
-
-  duracionTotal: number;
-  minE: number;
-  minR: number;
-  minC: number;
-  minA: number;
-};
-
-function cleanKey(name: string) {
-  return name
-    .normalize("NFKC")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-function detectarSubnivelSugerido(nivel: "EGB" | "BGU", gradoStr: string): string {
-  const g = parseInt(gradoStr, 10);
+function sugerirSubnivel(nivel: Nivel, gradoStr: string): string {
+  const n = parseInt(gradoStr, 10);
   if (nivel === "BGU") return "BGU";
 
-  if (!Number.isFinite(g)) return "EGB Preparatoria";
-  if (g <= 1) return "EGB Preparatoria";
-  if (g <= 4) return "EGB Elemental";
-  if (g <= 7) return "EGB Media";
+  // EGB (ajusta si tu institución maneja otra división)
+  if (!Number.isFinite(n)) return "EGB Preparatoria";
+  if (n <= 1) return "EGB Preparatoria";
+  if (n >= 2 && n <= 4) return "EGB Elemental";
+  if (n >= 5 && n <= 7) return "EGB Media";
   return "EGB Superior";
 }
 
-function sugerirDistribucionERCA(total: number) {
-  const t = Math.max(10, Math.floor(total));
-  const base = Math.floor(t / 4);
-  let e = base, r = base, c = base, a = base;
-  let rem = t - base * 4;
-  while (rem > 0) {
-    e++; rem--;
-    if (rem <= 0) break;
-    r++; rem--;
-    if (rem <= 0) break;
-    c++; rem--;
-    if (rem <= 0) break;
-    a++; rem--;
-  }
-  return { e, r, c, a };
-}
-
 export default function Home() {
-  const [inputs, setInputs] = useState<PlanInputs>(() => {
-    const total = 40;
-    const dist = sugerirDistribucionERCA(total);
-    return {
-      asignatura: "Matemática",
-      nivel: "EGB",
-      grado: "1",
-      unidad: "1",
-      tema: "",
-
-      subnivel: "EGB Preparatoria",
-      destrezaCodigo: "",
-
-      duracionTotal: total,
-      minE: dist.e,
-      minR: dist.r,
-      minC: dist.c,
-      minA: dist.a,
-    };
-  });
-
-  function onChange<K extends keyof PlanInputs>(k: K, v: PlanInputs[K]) {
-    setInputs((prev) => ({ ...prev, [k]: v }));
-  }
-
-  const subnivelSugerido = useMemo(
-    () => detectarSubnivelSugerido(inputs.nivel, inputs.grado),
-    [inputs.nivel, inputs.grado]
-  );
+  const [asignatura] = useState("Matemática");
+  const [nivel, setNivel] = useState<Nivel>("EGB");
+  const [grado, setGrado] = useState("1");
+  const [unidad, setUnidad] = useState("1");
+  const [tema, setTema] = useState("");
 
   const subnivelesDisponibles = useMemo(() => {
-    const keys = Object.keys(matematicaPriorizado.subniveles).map(cleanKey);
-    return keys.length ? keys : ["EGB Preparatoria", "EGB Elemental", "EGB Media", "EGB Superior", "BGU"];
-  }, []);
+    const keys = Object.keys(matematicaPriorizado.subniveles || {});
+    if (nivel === "BGU") {
+      return keys.filter(k => k.toLowerCase() === "bgu" || k.toLowerCase().includes("bgu"));
+    }
+    // EGB
+    return keys.filter(k => k.toLowerCase().includes("egb"));
+  }, [nivel]);
 
-  const destrezasFiltradas: Destreza[] = useMemo(() => {
-    const key = cleanKey(inputs.subnivel);
-    const sub = matematicaPriorizado.subniveles[key];
-    if (!sub) return [];
-    return filtroDestrezasPorSubnivel(key, sub.destrezas);
-  }, [inputs.subnivel]);
+  const subnivelSugerido = useMemo(() => sugerirSubnivel(nivel, grado), [nivel, grado]);
+
+  const [subnivel, setSubnivel] = useState<string>(() => sugerirSubnivel("EGB", "1"));
+  const [destrezaCodigo, setDestrezaCodigo] = useState<string>("");
+
+  // cuando cambia nivel/grado, intenta auto-ajustar subnivel si existe
+  useMemo(() => {
+    const s = subnivelSugerido;
+    if (subnivelesDisponibles.includes(s)) {
+      setSubnivel(s);
+      setDestrezaCodigo("");
+    } else if (subnivelesDisponibles.length) {
+      setSubnivel(subnivelesDisponibles[0]);
+      setDestrezaCodigo("");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [subnivelSugerido, subnivelesDisponibles.join("|")]);
+
+  const subData = matematicaPriorizado.subniveles[subnivel];
+
+  const destrezas = useMemo(() => {
+    const list = subData?.destrezas ?? [];
+
+    // ✅ doble seguro: filtra por prefijo según el subnivel seleccionado
+    const rx = prefijoPorSubnivel(subnivel);
+    return rx ? list.filter(d => rx.test(d.codigo)) : list;
+  }, [subData, subnivel]);
 
   const destrezaSeleccionada = useMemo(() => {
-    return destrezasFiltradas.find((d) => d.codigo === inputs.destrezaCodigo) || null;
-  }, [destrezasFiltradas, inputs.destrezaCodigo]);
+    return destrezas.find(d => d.codigo === destrezaCodigo) ?? null;
+  }, [destrezas, destrezaCodigo]);
 
-  const objetivosSubnivel = useMemo(() => {
-    const key = cleanKey(inputs.subnivel);
-    return matematicaPriorizado.subniveles[key]?.objetivos || [];
-  }, [inputs.subnivel]);
+  const objetivoPrincipal = useMemo(() => {
+    return (subData?.objetivos && subData.objetivos.length > 0) ? subData.objetivos[0] : null;
+  }, [subData]);
 
-  const [planText, setPlanText] = useState<string>("");
+  const [duracionTotal, setDuracionTotal] = useState(40);
+  const [minE, setMinE] = useState(10);
+  const [minR, setMinR] = useState(10);
+  const [minC, setMinC] = useState(10);
+  const [minA, setMinA] = useState(10);
 
-  function onSubnivelChange(newSub: string) {
-    onChange("subnivel", newSub);
-    onChange("destrezaCodigo", "");
-  }
+  const [plan, setPlan] = useState<string>("");
 
   function generarPlan() {
-    if (!destrezaSeleccionada) {
-      setPlanText("⚠️ Selecciona una destreza del currículo para generar la planificación.");
-      return;
-    }
+    const fuente = matematicaPriorizado.fuente;
 
-    const objetivosTxt = objetivosSubnivel.length
-      ? objetivosSubnivel.map((o) => `- ${o.codigo}: ${o.descripcion}`).join("\n")
-      : "- (Sin objetivos cargados)";
+    const objTxt = objetivoPrincipal
+      ? `${objetivoPrincipal.codigo}: ${objetivoPrincipal.descripcion}`
+      : "(No hay objetivos cargados en este subnivel)";
 
-    const indicadoresTxt = (destrezaSeleccionada.indicadores || []).length
-      ? destrezaSeleccionada.indicadores.map((i) => `- ${i.codigo}: ${i.descripcion}`).join("\n")
-      : "- (Sin indicadores cargados)";
+    const desTxt = destrezaSeleccionada
+      ? `${destrezaSeleccionada.codigo}: ${destrezaSeleccionada.descripcion}`
+      : "(No seleccionaste destreza)";
 
-    setPlanText(
-      `
-PLANIFICACIÓN MICROCURRICULAR (ERCA + DUA) — Currículo Priorizado por Competencias (Matemática)
+    const inds = (destrezaSeleccionada?.indicadores ?? [])
+      .map(i => `- ${i.codigo}: ${i.descripcion}`)
+      .join("\n");
 
-ÁREA: ${matematicaPriorizado.area}
-FUENTE: ${matematicaPriorizado.fuente}
-SUBNIVEL: ${cleanKey(inputs.subnivel)}
+    const indicadoresTxt = inds.length ? inds : "- (No hay indicadores cargados para esta destreza)";
+
+    const out =
+`PLANIFICACIÓN MICROCURRICULAR (ERCA + DUA) — Currículo Priorizado por Competencias
+Área: ${matematicaPriorizado.area}
+Fuente: ${fuente}
 
 1) DATOS INFORMATIVOS
-- Asignatura: ${inputs.asignatura}
-- Nivel: ${inputs.nivel}
-- Grado/Curso: ${inputs.grado}
-- Unidad: ${inputs.unidad}
-- Tema: ${inputs.tema || "-"}
+- Asignatura: ${asignatura}
+- Nivel: ${nivel}
+- Grado/Curso: ${grado}
+- Unidad: ${unidad}
+- Tema: ${tema || "(sin tema)"}
+- Subnivel: ${subnivel}
 
-2) OBJETIVOS DEL SUBNIVEL
-${objetivosTxt}
+2) OBJETIVO (Currículo)
+- ${objTxt}
 
 3) DESTREZA CON CRITERIO DE DESEMPEÑO (Currículo)
-- ${destrezaSeleccionada.codigo}: ${destrezaSeleccionada.descripcion}
+- ${desTxt}
 
-4) INDICADORES DE EVALUACIÓN
+4) INDICADORES DE EVALUACIÓN (Currículo)
 ${indicadoresTxt}
 
-5) TIEMPO (ERCA)
-- Duración total: ${inputs.duracionTotal} min
-- Distribución: E=${inputs.minE} | R=${inputs.minR} | C=${inputs.minC} | A=${inputs.minA}
-      `.trim()
-    );
+5) TIEMPO
+- Duración total: ${duracionTotal} minutos
+- Distribución ERCA: E=${minE} | R=${minR} | C=${minC} | A=${minA}
+
+6) ERCA (con apoyos DUA)
+E — EXPERIENCIA
+- Actividad: situación inicial breve ligada al tema y destreza.
+- DUA (Representación): ejemplo visual + material concreto.
+- DUA (Acción/Expresión): respuesta oral / escrita / manipulativa.
+- DUA (Compromiso): opción A/B de actividad.
+
+R — REFLEXIÓN
+- Preguntas guía: ¿qué observaste?, ¿qué te resultó difícil?, ¿qué estrategia usaste?
+- DUA: organizador gráfico simple (tabla / esquema).
+
+C — CONCEPTUALIZACIÓN
+- Construcción del concepto con ejemplos y contraejemplos.
+- DUA: mini-resumen en cartel / audio / mapa.
+
+A — APLICACIÓN
+- Ejercicios graduados + reto contextual.
+- Evidencia: producto breve (lista de cotejo / rúbrica corta).
+`;
+
+    setPlan(out);
   }
 
   return (
-    <main style={{ padding: "2rem", fontFamily: "Arial, sans-serif" }}>
+    <main style={{ padding: "2rem", fontFamily: "Arial", maxWidth: 1100 }}>
       <h1>📘 Planificador ERCA Ecuador</h1>
       <p>
-        Genera una planificación base con estructura <b>ERCA</b> y apoyos <b>DUA</b>, vinculada al{" "}
-        <b>Currículo Priorizado por Competencias</b> (Matemática).
+        Genera una planificación base con estructura ERCA y apoyos DUA, vinculada al
+        Currículo Priorizado por Competencias (Matemática).
       </p>
 
       <hr />
 
-      <h2>👩‍🏫 Datos del docente</h2>
+      <h2>🧑‍🏫 Datos del docente</h2>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", maxWidth: 900 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
         <label>
           Asignatura:
-          <input value={inputs.asignatura} onChange={(e) => onChange("asignatura", e.target.value)} style={{ width: "100%" }} />
+          <input value={asignatura} readOnly style={{ width: "100%" }} />
         </label>
 
         <label>
           Nivel:
-          <select value={inputs.nivel} onChange={(e) => onChange("nivel", e.target.value as any)} style={{ width: "100%" }}>
+          <select value={nivel} onChange={(e) => { setNivel(e.target.value as Nivel); setDestrezaCodigo(""); }} style={{ width: "100%" }}>
             <option value="EGB">EGB</option>
             <option value="BGU">BGU</option>
           </select>
@@ -191,107 +171,103 @@ ${indicadoresTxt}
 
         <label>
           Grado / Curso:
-          <input value={inputs.grado} onChange={(e) => onChange("grado", e.target.value)} style={{ width: "100%" }} />
+          <input value={grado} onChange={(e) => { setGrado(e.target.value); }} style={{ width: "100%" }} />
+          <div style={{ fontSize: 12, opacity: 0.7, marginTop: 4 }}>
+            Subnivel sugerido: {subnivelSugerido}
+          </div>
         </label>
 
         <label>
           Unidad:
-          <input value={inputs.unidad} onChange={(e) => onChange("unidad", e.target.value)} style={{ width: "100%" }} />
-        </label>
-
-        <label style={{ gridColumn: "1 / -1" }}>
-          Tema:
-          <input
-            placeholder="Ej: fracciones equivalentes"
-            value={inputs.tema}
-            onChange={(e) => onChange("tema", e.target.value)}
-            style={{ width: "100%" }}
-          />
+          <input value={unidad} onChange={(e) => setUnidad(e.target.value)} style={{ width: "100%" }} />
         </label>
       </div>
 
-      <p style={{ marginTop: 6, fontSize: 13, color: "#444" }}>
-        Subnivel sugerido: <b>{subnivelSugerido}</b>
-      </p>
+      <label style={{ display: "block", marginTop: 12 }}>
+        Tema:
+        <input value={tema} onChange={(e) => setTema(e.target.value)} style={{ width: "100%" }} placeholder="Ej: fracciones equivalentes" />
+      </label>
 
       <hr />
 
       <h2>📌 Currículo (Matemática)</h2>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr", gap: "1rem", maxWidth: 1100 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "320px 1fr", gap: 16, alignItems: "start" }}>
         <label>
           Subnivel:
-          <select value={inputs.subnivel} onChange={(e) => onSubnivelChange(e.target.value)} style={{ width: "100%" }}>
-            {subnivelesDisponibles.map((sn) => (
-              <option key={sn} value={sn}>
-                {sn}
-              </option>
+          <select
+            value={subnivel}
+            onChange={(e) => { setSubnivel(e.target.value); setDestrezaCodigo(""); }}
+            style={{ width: "100%" }}
+          >
+            {subnivelesDisponibles.map((k) => (
+              <option key={k} value={k}>{k}</option>
             ))}
           </select>
-          <div style={{ fontSize: 12, color: "#666" }}>(Se llena desde matematica.json)</div>
+          <div style={{ fontSize: 12, opacity: 0.7 }}>(Se llena desde matematica.json)</div>
         </label>
 
         <label>
-          Destreza (Currículo) — <b>{cleanKey(inputs.subnivel)}</b>:
+          Destreza (Currículo) — {subnivel}:
           <select
-            value={inputs.destrezaCodigo}
-            onChange={(e) => onChange("destrezaCodigo", e.target.value)}
+            value={destrezaCodigo}
+            onChange={(e) => setDestrezaCodigo(e.target.value)}
             style={{ width: "100%" }}
           >
             <option value="">Selecciona una destreza...</option>
-            {destrezasFiltradas.map((d) => (
+            {destrezas.map((d) => (
               <option key={d.codigo} value={d.codigo}>
                 {d.codigo} — {d.descripcion}
               </option>
             ))}
           </select>
+          <div style={{ fontSize: 12, opacity: 0.7, marginTop: 6 }}>
+            Seleccionada: {destrezaSeleccionada ? `${destrezaSeleccionada.codigo} — ${destrezaSeleccionada.descripcion}` : "(ninguna)"}
+          </div>
         </label>
       </div>
 
       <hr />
 
       <h2>⏱️ Tiempo (ERCA)</h2>
-
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr", gap: "1rem", maxWidth: 900 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr", gap: 12 }}>
         <label>
           Duración total (min):
-          <input type="number" value={inputs.duracionTotal} onChange={(e) => onChange("duracionTotal", Number(e.target.value))} style={{ width: "100%" }} />
+          <input type="number" value={duracionTotal} onChange={(e) => setDuracionTotal(parseInt(e.target.value || "0", 10))} style={{ width: "100%" }} />
         </label>
-
         <label>
           E (min):
-          <input type="number" value={inputs.minE} onChange={(e) => onChange("minE", Number(e.target.value))} style={{ width: "100%" }} />
+          <input type="number" value={minE} onChange={(e) => setMinE(parseInt(e.target.value || "0", 10))} style={{ width: "100%" }} />
         </label>
-
         <label>
           R (min):
-          <input type="number" value={inputs.minR} onChange={(e) => onChange("minR", Number(e.target.value))} style={{ width: "100%" }} />
+          <input type="number" value={minR} onChange={(e) => setMinR(parseInt(e.target.value || "0", 10))} style={{ width: "100%" }} />
         </label>
-
         <label>
           C (min):
-          <input type="number" value={inputs.minC} onChange={(e) => onChange("minC", Number(e.target.value))} style={{ width: "100%" }} />
+          <input type="number" value={minC} onChange={(e) => setMinC(parseInt(e.target.value || "0", 10))} style={{ width: "100%" }} />
         </label>
-
         <label>
           A (min):
-          <input type="number" value={inputs.minA} onChange={(e) => onChange("minA", Number(e.target.value))} style={{ width: "100%" }} />
+          <input type="number" value={minA} onChange={(e) => setMinA(parseInt(e.target.value || "0", 10))} style={{ width: "100%" }} />
         </label>
       </div>
 
-      <button
-        type="button"
-        onClick={generarPlan}
-        style={{ marginTop: 10, padding: "10px 14px", border: "2px solid #000", background: "#fff", cursor: "pointer" }}
-      >
-        Generar planificación (ERCA + Currículo)
-      </button>
+      <div style={{ marginTop: 14 }}>
+        <button
+          type="button"
+          onClick={generarPlan}
+          style={{ padding: "10px 16px", border: "2px solid black", fontWeight: 700 }}
+        >
+          Generar planificación (ERCA + Currículo)
+        </button>
+      </div>
 
       <hr />
 
       <h2>📄 Planificación generada</h2>
-      <pre style={{ whiteSpace: "pre-wrap", background: "#f5f5f5", padding: "1rem", borderRadius: 6 }}>
-        {planText || "Aún no se ha generado una planificación."}
+      <pre style={{ whiteSpace: "pre-wrap", background: "#f5f5f5", padding: 12, borderRadius: 8 }}>
+        {plan || "Aún no se ha generado una planificación."}
       </pre>
     </main>
   );

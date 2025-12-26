@@ -11,79 +11,83 @@ export type Subnivel = {
 };
 
 export type CurriculoMatematica = {
-  area: "Matemática";
+  area: string;
   fuente: string;
   subniveles: Record<string, Subnivel>;
 };
 
 type RawJson = {
   meta?: { area?: string; fuente?: string };
-  subniveles?: Record<string, { objetivos?: any[]; destrezas?: any[] }>;
+  subniveles?: Record<
+    string,
+    {
+      objetivos?: Array<{ codigo?: any; descripcion?: any }>;
+      destrezas?: Array<{
+        codigo?: any;
+        descripcion?: any;
+        indicadores?: Array<{ codigo?: any; descripcion?: any }>;
+      }>;
+    }
+  >;
 };
 
 function s(x: any, fb = ""): string {
-  return typeof x === "string" ? x : fb;
+  return typeof x === "string" ? x.trim() : fb;
 }
 function arr<T>(x: any): T[] {
   return Array.isArray(x) ? (x as T[]) : [];
 }
 
-function cleanKey(name: string) {
-  return name
-    .normalize("NFKC")
-    .replace(/\s+/g, " ")
-    .trim();
+export function prefijoPorSubnivel(nombre: string): RegExp | null {
+  // Ajusta si tu currículo usa otros prefijos por subnivel
+  const n = nombre.toLowerCase();
+  if (n.includes("preparatoria")) return /^M\.1\./i;
+  if (n.includes("elemental")) return /^M\.2\./i;
+  if (n.includes("media")) return /^M\.3\./i;
+  if (n.includes("superior")) return /^M\.4\./i;
+  if (n === "bgu" || n.includes("bgu")) return /^M\.5\./i; // por defecto
+  return null;
 }
 
 function normalize(json: RawJson): CurriculoMatematica {
-  const area = (s(json?.meta?.area, "Matemática") as "Matemática") || "Matemática";
-  const fuente = s(json?.meta?.fuente, "MINEDUC Ecuador — Currículo Priorizado por Competencias");
+  const area = s(json?.meta?.area, "Matemática");
+  const fuente = s(json?.meta?.fuente, "Currículo Priorizado por Competencias (Ecuador)");
 
-  const subniveles: Record<string, Subnivel> = {};
-  const rawSubs = json?.subniveles ?? {};
+  const out: CurriculoMatematica = {
+    area,
+    fuente,
+    subniveles: {},
+  };
 
-  for (const [nombreRaw, sub] of Object.entries(rawSubs)) {
-    const nombre = cleanKey(nombreRaw);
+  const subs = json?.subniveles ?? {};
+  for (const [subNombre, subData] of Object.entries(subs)) {
+    // ✅ IMPORTANTÍSIMO: crear NUEVOS arreglos por subnivel (no reutilizar referencias)
+    const objetivos: Objetivo[] = arr(subData?.objetivos).map((o: any) => ({
+      codigo: s(o?.codigo),
+      descripcion: s(o?.descripcion),
+    })).filter(o => o.codigo || o.descripcion);
 
-    const objetivos: Objetivo[] = arr<any>(sub?.objetivos).map((o) => ({
-      codigo: s(o?.codigo).trim(),
-      descripcion: s(o?.descripcion).trim(),
-    }));
+    const destrezasCrudas: Destreza[] = arr(subData?.destrezas).map((d: any) => ({
+      codigo: s(d?.codigo),
+      descripcion: s(d?.descripcion),
+      indicadores: arr(d?.indicadores).map((i: any) => ({
+        codigo: s(i?.codigo),
+        descripcion: s(i?.descripcion),
+      })).filter(i => i.codigo || i.descripcion),
+    })).filter(d => d.codigo || d.descripcion);
 
-    const destrezas: Destreza[] = arr<any>(sub?.destrezas).map((d) => ({
-      codigo: s(d?.codigo).trim(),
-      descripcion: s(d?.descripcion).trim(),
-      indicadores: arr<any>(d?.indicadores).map((i) => ({
-        codigo: s(i?.codigo).trim(),
-        descripcion: s(i?.descripcion).trim(),
-      })),
-    }));
+    // ✅ Filtro de seguridad por prefijo para que NO se mezclen M.1 en Elemental, etc.
+    const rx = prefijoPorSubnivel(subNombre);
+    const destrezas = rx ? destrezasCrudas.filter(d => rx.test(d.codigo)) : destrezasCrudas;
 
-    subniveles[nombre] = { nombre, objetivos, destrezas };
+    out.subniveles[subNombre] = {
+      nombre: subNombre,
+      objetivos,
+      destrezas,
+    };
   }
 
-  return { area, fuente, subniveles };
+  return out;
 }
 
-export const matematicaPriorizado = normalize(raw as any);
-
-/**
- * ✅ FILTRO ROBUSTO:
- * - Normaliza nombre del subnivel (trim/espacios)
- * - Determina regla por "contiene" (no por igualdad exacta)
- */
-export function filtroDestrezasPorSubnivel(nombreSubnivel: string, destrezas: Destreza[]): Destreza[] {
-  const sn = cleanKey(nombreSubnivel);
-
-  let re: RegExp | null = null;
-
-  if (sn.includes("Preparatoria")) re = /^M\.1\./;
-  else if (sn.includes("Elemental")) re = /^M\.2\./;
-  else if (sn.includes("Media")) re = /^M\.3\./;
-  else if (sn.includes("Superior")) re = /^M\.(4|5)\./;
-  else if (sn === "BGU" || sn.includes("BGU")) re = null; // cuando pegues BGU real, aquí ajustas
-
-  if (!re) return destrezas;
-
-  return destrezas.filter((d) => re!.test((d.codigo || "").trim()));
-}
+export const matematicaPriorizado: CurriculoMatematica = normalize(raw as any);
