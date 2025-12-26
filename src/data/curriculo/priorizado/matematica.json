@@ -53,228 +53,62 @@
           "descripcion": "Comunicar ideas sobre la interpretación de su entorno (recolección de información) y explicar de manera verbal y/o gráfica (pictogramas) los procesos utilizados en la recolección de datos y en la resolución de problemas cotidianos sencillos."
         }
       ],
+      "indicadores_catalogo": [
+        { "codigo": "I.M.1.1.1", "descripcion": "Compara y distingue objetos según su color, tamaño, longitud, textura y forma en situaciones cotidianas." },
+        { "codigo": "I.M.1.1.2", "descripcion": "Describe la ubicación de los objetos del entorno." },
+        { "codigo": "I.M.1.1.3", "descripcion": "Construye series utilizando objetos del entorno, sonidos, movimientos, figuras y cuerpos geométricos y agrupaciones de elementos." },
+        { "codigo": "I.M.1.1.4", "descripcion": "Clasifica mediante el uso de gráficos simples los diferentes medios de transporte según su nivel de contaminación." },
+        { "codigo": "I.M.1.2.1", "descripcion": "Establece relaciones de orden y escribe secuencias numéricas ascendentes y descendentes, con números naturales del 1 al 10 y con números ordinales, hasta el quinto, para explicar situaciones cotidianas." },
+        { "codigo": "I.M.1.2.2", "descripcion": "Resuelve situaciones cotidianas que requieren de la comparación de colecciones de objetos mediante el uso de cuantificadores, la adición y sustracción, con números naturales hasta el 10, y el conteo de colecciones de objetos hasta el 20." },
+        { "codigo": "I.M.1.3.1", "descripcion": "Encuentra, en el entorno y en elementos de su uso personal, objetos que contienen o son semejantes a los cuerpos y figuras geométricas, los selecciona de acuerdo a su interés y comparte con sus compañeras y compañeros las razones de la selección." },
+        { "codigo": "I.M.1.3.2", "descripcion": "Clasifica objetos del entorno y los agrupa considerando su tamaño, longitud, capacidad, peso o temperatura y expresa verbalmente los criterios de la agrupación." },
+        { "codigo": "I.M.1.4.1", "descripcion": "Utiliza unidades de medida no convencionales y el conteo de cantidades hasta el 20 para indicar la longitud, peso o el costo de objetos del entorno y dar solución a situaciones cotidianas sencillas." },
+        { "codigo": "I.M.1.4.2", "descripcion": "Emplea unidades de tiempo para ordenar secuencias temporales que describan actividades significativas y sus actividades cotidianas." },
+        { "codigo": "I.M.1.4.3", "descripcion": "Reconoce situaciones en las que se debe priorizar el uso del dinero para satisfacer necesidades básicas." },
+        { "codigo": "I.M.1.4.4", "descripcion": "Reconoce las diferencias entre gasto y ahorro." },
+        { "codigo": "M.1.5.1", "descripcion": "Soluciona problemas mediante la organización y representación de datos estadísticos provenientes de situaciones cotidianas, personales y de la identificación en eventos probables y no probables del entorno." }
+      ],
       "destrezas": [
-        {
-          "codigo": "M.1.4.1",
-          "descripcion": "Reconocer los colores primarios: rojo, amarillo y azul; los colores blanco y negro y los colores secundarios, en objetos del entorno.",
-          "indicadores": [
-            {
-              "codigo": "I.M.1.1.1",
-              "descripcion": "Compara y distingue objetos según su color, tamaño, longitud, textura y forma en situaciones cotidianas."
-            }
-          ]
-        },
-        {
-          "codigo": "M.1.4.2",
-          "descripcion": "Reconocer la posición de objetos del entorno: derecha, izquierda.",
-          "indicadores": [
-            { "codigo": "I.M.1.1.2", "descripcion": "Describe la ubicación de los objetos del entorno." }
-          ]
-        },
-        {
-          "codigo": "M.1.4.4",
-          "descripcion": "Distinguir la ubicación de objetos del entorno según las nociones arriba/abajo, delante/atrás y encima/debajo.",
-          "indicadores": [
-            { "codigo": "I.M.1.1.2", "descripcion": "Describe la ubicación de los objetos del entorno." }
-          ]
-        },
-        {
-          "codigo": "M.1.4.5",
-          "descripcion": "Reconocer las semejanzas y diferencias entre los objetos del entorno de acuerdo con su forma y sus características físicas (color, tamaño y longitud).",
-          "indicadores": [
-            { "codigo": "I.M.1.1.1", "descripcion": "Compara y distingue objetos según su color, tamaño, longitud, textura y forma en situaciones cotidianas." }
-          ]
-        },
-        {
-          "codigo": "M.1.4.6",
-          "descripcion": "Agrupar colecciones de objetos del entorno según sus características físicas: color, tamaño (grande/pequeño), longitud (alto/bajo y largo/corto).",
-          "indicadores": [
-            { "codigo": "I.M.1.3.2", "descripcion": "Clasifica objetos del entorno y los agrupa considerando su tamaño, longitud, capacidad, peso o temperatura y expresa verbalmente los criterios de la agrupación." }
-          ]
-        },
-        {
-          "codigo": "M.1.4.8",
-          "descripcion": "Describir y reproducir patrones con objetos del entorno por color, forma, tamaño, longitud o con siluetas de figuras geométricas, sonidos y movimientos.",
-          "indicadores": [
-            { "codigo": "I.M.1.1.3", "descripcion": "Construye series utilizando objetos del entorno, sonidos, movimientos, figuras y cuerpos geométricos y agrupaciones de elementos." }
-          ]
-        },
+        { "codigo": "M.1.4.1", "descripcion": "Reconocer los colores primarios: rojo, amarillo y azul; los colores blanco y negro y los colores secundarios, en objetos del entorno.", "indicadores": ["I.M.1.1.1"] },
+        { "codigo": "M.1.4.2", "descripcion": "Reconocer la posición de objetos del entorno: derecha, izquierda.", "indicadores": ["I.M.1.1.2"] },
+        { "codigo": "M.1.4.4", "descripcion": "Distinguir la ubicación de objetos del entorno según las nociones arriba/abajo, delante/atrás y encima/debajo.", "indicadores": ["I.M.1.1.2"] },
+        { "codigo": "M.1.4.5", "descripcion": "Reconocer las semejanzas y diferencias entre los objetos del entorno de acuerdo con su forma y sus características físicas (color, tamaño y longitud).", "indicadores": ["I.M.1.1.1"] },
+        { "codigo": "M.1.4.6", "descripcion": "Agrupar colecciones de objetos del entorno según sus características físicas: color, tamaño (grande/pequeño), longitud (alto/bajo y largo/corto).", "indicadores": ["I.M.1.3.2"] },
+        { "codigo": "M.1.4.8", "descripcion": "Describir y reproducir patrones con objetos del entorno por color, forma, tamaño, longitud o con siluetas de figuras geométricas, sonidos y movimientos.", "indicadores": ["I.M.1.1.3"] },
 
-        {
-          "codigo": "M.1.4.41",
-          "descripcion": "Comparar las diferentes formas de transporte (automóvil, bicicleta, motocicleta) clasificándolas según su impacto en el medio ambiente.",
-          "indicadores": [
-            { "codigo": "I.M.1.1.4", "descripcion": "Clasifica mediante el uso de gráficos simples los diferentes medios de transporte según su nivel de contaminación." }
-          ]
-        },
+        { "codigo": "M.1.4.41", "descripcion": "Comparar las diferentes formas de transporte (automóvil, bicicleta, motocicleta) clasificándolas según su impacto en el medio ambiente.", "indicadores": ["I.M.1.1.4"] },
 
-        {
-          "codigo": "M.1.4.11",
-          "descripcion": "Establecer relaciones de orden: ‘más que’ y ‘menos que’, entre objetos del entorno.",
-          "indicadores": [
-            { "codigo": "I.M.1.2.1", "descripcion": "Establece relaciones de orden y escribe secuencias numéricas ascendentes y descendentes, con números naturales del 1 al 10 y con números ordinales, hasta el quinto, para explicar situaciones cotidianas." }
-          ]
-        },
-        {
-          "codigo": "M.1.4.12",
-          "descripcion": "Utilizar la noción de cantidad en estimaciones y comparaciones de colecciones de objetos mediante el uso de cuantificadores como: muchos, pocos, uno, ninguno, todos.",
-          "indicadores": [
-            { "codigo": "I.M.1.2.2", "descripcion": "Resuelve situaciones cotidianas que requieren de la comparación de colecciones de objetos mediante el uso de cuantificadores, la adición y sustracción, con números naturales hasta el 10, y el conteo de colecciones de objetos hasta el 20." }
-          ]
-        },
-        {
-          "codigo": "M.1.4.13",
-          "descripcion": "Contar colecciones de objetos en el círculo del 1 al 20 en circunstancias de la cotidianidad.",
-          "indicadores": [
-            { "codigo": "I.M.1.2.2", "descripcion": "Resuelve situaciones cotidianas que requieren de la comparación de colecciones de objetos mediante el uso de cuantificadores, la adición y sustracción, con números naturales hasta el 10, y el conteo de colecciones de objetos hasta el 20." }
-          ]
-        },
-        {
-          "codigo": "M.1.4.14",
-          "descripcion": "Identificar cantidades y asociarlas con los numerales 1 al 10 y el 0.",
-          "indicadores": [
-            { "codigo": "I.M.1.2.2", "descripcion": "Resuelve situaciones cotidianas que requieren de la comparación de colecciones de objetos mediante el uso de cuantificadores, la adición y sustracción, con números naturales hasta el 10, y el conteo de colecciones de objetos hasta el 20." }
-          ]
-        },
-        {
-          "codigo": "M.1.4.15",
-          "descripcion": "Escribir los números naturales, de 0 a 10, en contextos significativos.",
-          "indicadores": [
-            { "codigo": "I.M.1.2.1", "descripcion": "Establece relaciones de orden y escribe secuencias numéricas ascendentes y descendentes, con números naturales del 1 al 10 y con números ordinales, hasta el quinto, para explicar situaciones cotidianas." }
-          ]
-        },
-        {
-          "codigo": "M.1.4.36",
-          "descripcion": "Resolver problemas sencillos de suma y resta hasta 9 con el apoyo de sus pares, utilizando materiales manipulativos y representaciones gráficas.",
-          "indicadores": [
-            { "codigo": "I.M.1.2.2", "descripcion": "Resuelve situaciones cotidianas que requieren de la comparación de colecciones de objetos mediante el uso de cuantificadores, la adición y sustracción, con números naturales hasta el 10, y el conteo de colecciones de objetos hasta el 20." }
-          ]
-        },
+        { "codigo": "M.1.4.11", "descripcion": "Establecer relaciones de orden: ‘más que’ y ‘menos que’, entre objetos del entorno.", "indicadores": ["I.M.1.2.1"] },
+        { "codigo": "M.1.4.12", "descripcion": "Utilizar la noción de cantidad en estimaciones y comparaciones de colecciones de objetos mediante el uso de cuantificadores como: muchos, pocos, uno, ninguno, todos.", "indicadores": ["I.M.1.2.2"] },
+        { "codigo": "M.1.4.13", "descripcion": "Contar colecciones de objetos en el círculo del 1 al 20 en circunstancias de la cotidianidad.", "indicadores": ["I.M.1.2.2"] },
+        { "codigo": "M.1.4.14", "descripcion": "Identificar cantidades y asociarlas con los numerales 1 al 10 y el 0.", "indicadores": ["I.M.1.2.2"] },
+        { "codigo": "M.1.4.15", "descripcion": "Escribir los números naturales, de 0 a 10, en contextos significativos.", "indicadores": ["I.M.1.2.1"] },
+        { "codigo": "M.1.4.36", "descripcion": "Resolver problemas sencillos de suma y resta hasta 9 con el apoyo de sus pares, utilizando materiales manipulativos y representaciones gráficas.", "indicadores": ["I.M.1.2.2"] },
 
-        {
-          "codigo": "M.1.4.19",
-          "descripcion": "Reconocer cuerpos geométricos en objetos del entorno.",
-          "indicadores": [
-            { "codigo": "I.M.1.3.1", "descripcion": "Encuentra, en el entorno y en elementos de su uso personal, objetos que contienen o son semejantes a los cuerpos y figuras geométricas, los selecciona de acuerdo a su interés y comparte con sus compañeras y compañeros las razones de la selección." }
-          ]
-        },
-        {
-          "codigo": "M.1.4.21",
-          "descripcion": "Reconocer figuras geométricas (triángulo, cuadrado, rectángulo y círculo) en objetos del entorno.",
-          "indicadores": [
-            { "codigo": "I.M.1.3.1", "descripcion": "Encuentra, en el entorno y en elementos de su uso personal, objetos que contienen o son semejantes a los cuerpos y figuras geométricas, los selecciona de acuerdo a su interés y comparte con sus compañeras y compañeros las razones de la selección." }
-          ]
-        },
+        { "codigo": "M.1.4.19", "descripcion": "Reconocer cuerpos geométricos en objetos del entorno.", "indicadores": ["I.M.1.3.1"] },
+        { "codigo": "M.1.4.21", "descripcion": "Reconocer figuras geométricas (triángulo, cuadrado, rectángulo y círculo) en objetos del entorno.", "indicadores": ["I.M.1.3.1"] },
 
-        {
-          "codigo": "M.1.4.22",
-          "descripcion": "Describir objetos del entorno utilizando nociones de longitud: alto/bajo, largo/corto, cerca/lejos.",
-          "indicadores": [
-            { "codigo": "I.M.1.4.1", "descripcion": "Utiliza unidades de medida no convencionales y el conteo de cantidades hasta el 20 para indicar la longitud, peso o el costo de objetos del entorno y dar solución a situaciones cotidianas sencillas." }
-          ]
-        },
-        {
-          "codigo": "M.1.4.24",
-          "descripcion": "Describir y comparar objetos del entorno según nociones de volumen y superficie: tamaño grande, pequeño.",
-          "indicadores": [
-            { "codigo": "I.M.1.3.2", "descripcion": "Clasifica objetos del entorno y los agrupa considerando su tamaño, longitud, capacidad, peso o temperatura y expresa verbalmente los criterios de la agrupación." }
-          ]
-        },
-        {
-          "codigo": "M.1.4.25",
-          "descripcion": "Comparar objetos según la noción de capacidad (lleno/vacío).",
-          "indicadores": [
-            { "codigo": "I.M.1.3.2", "descripcion": "Clasifica objetos del entorno y los agrupa considerando su tamaño, longitud, capacidad, peso o temperatura y expresa verbalmente los criterios de la agrupación." }
-          ]
-        },
-        {
-          "codigo": "M.1.4.26",
-          "descripcion": "Comparar objetos según la noción de peso (pesado/liviano).",
-          "indicadores": [
-            { "codigo": "I.M.1.3.2", "descripcion": "Clasifica objetos del entorno y los agrupa considerando su tamaño, longitud, capacidad, peso o temperatura y expresa verbalmente los criterios de la agrupación." }
-          ]
-        },
-        {
-          "codigo": "M.1.4.32",
-          "descripcion": "Discriminar temperaturas entre objetos del entorno (frío/caliente).",
-          "indicadores": [
-            { "codigo": "I.M.1.3.2", "descripcion": "Clasifica objetos del entorno y los agrupa considerando su tamaño, longitud, capacidad, peso o temperatura y expresa verbalmente los criterios de la agrupación." }
-          ]
-        },
+        { "codigo": "M.1.4.22", "descripcion": "Describir objetos del entorno utilizando nociones de longitud: alto/bajo, largo/corto, cerca/lejos.", "indicadores": ["I.M.1.4.1"] },
+        { "codigo": "M.1.4.24", "descripcion": "Describir y comparar objetos del entorno según nociones de volumen y superficie: tamaño grande, pequeño.", "indicadores": ["I.M.1.3.2"] },
+        { "codigo": "M.1.4.25", "descripcion": "Comparar objetos según la noción de capacidad (lleno/vacío).", "indicadores": ["I.M.1.3.2"] },
+        { "codigo": "M.1.4.26", "descripcion": "Comparar objetos según la noción de peso (pesado/liviano).", "indicadores": ["I.M.1.3.2"] },
+        { "codigo": "M.1.4.32", "descripcion": "Discriminar temperaturas entre objetos del entorno (frío/caliente).", "indicadores": ["I.M.1.3.2"] },
 
-        {
-          "codigo": "M.1.4.23",
-          "descripcion": "Medir, estimar y comparar objetos del entorno utilizando unidades no convencionales de longitud (palmos, cuartas, cintas, lápices, pies, entre otras).",
-          "indicadores": [
-            { "codigo": "I.M.1.4.1", "descripcion": "Utiliza unidades de medida no convencionales y el conteo de cantidades hasta el 20 para indicar la longitud, peso o el costo de objetos del entorno y dar solución a situaciones cotidianas sencillas." }
-          ]
-        },
-        {
-          "codigo": "M.1.4.23",
-          "descripcion": "Reconocer las monedas de 1, 5 y 10 centavos en situaciones lúdicas.",
-          "indicadores": [
-            { "codigo": "I.M.1.4.3", "descripcion": "Reconoce situaciones en las que se debe priorizar el uso del dinero para satisfacer necesidades básicas." }
-          ]
-        },
+        { "codigo": "M.1.4.23", "descripcion": "Medir, estimar y comparar objetos del entorno utilizando unidades no convencionales de longitud (palmos, cuartas, cintas, lápices, pies, entre otras).", "indicadores": ["I.M.1.4.1"] },
 
-        {
-          "codigo": "M.1.4.29",
-          "descripcion": "Comparar y relacionar actividades con las nociones de tiempo: ayer, hoy, mañana, tarde, noche, antes, ahora, después y días de la semana, en situaciones cotidianas.",
-          "indicadores": [
-            { "codigo": "I.M.1.4.2", "descripcion": "Emplea unidades de tiempo para ordenar secuencias temporales que describan actividades significativas y sus actividades cotidianas." }
-          ]
-        },
+        { "codigo": "M.1.4.23", "descripcion": "Reconocer las monedas de 1, 5 y 10 centavos en situaciones lúdicas.", "indicadores": ["I.M.1.4.3"] },
 
-        {
-          "codigo": "M.1.4.37",
-          "descripcion": "Reconocer el valor del dinero para obtener productos y servicios.",
-          "indicadores": [
-            { "codigo": "I.M.1.4.3", "descripcion": "Reconoce situaciones en las que se debe priorizar el uso del dinero para satisfacer necesidades básicas." }
-          ]
-        },
-        {
-          "codigo": "M.1.4.38",
-          "descripcion": "Relacionar las fuentes de obtención del dinero y su utilidad.",
-          "indicadores": [
-            { "codigo": "I.M.1.4.3", "descripcion": "Reconoce situaciones en las que se debe priorizar el uso del dinero para satisfacer necesidades básicas." }
-          ]
-        },
-        {
-          "codigo": "M.1.4.39",
-          "descripcion": "Establecer la relación de los precios y las cosas que quiere comprar.",
-          "indicadores": [
-            { "codigo": "I.M.1.4.3", "descripcion": "Reconoce situaciones en las que se debe priorizar el uso del dinero para satisfacer necesidades básicas." }
-          ]
-        },
-        {
-          "codigo": "M.1.4.40",
-          "descripcion": "Identificar las diferencias entre gasto y ahorro.",
-          "indicadores": [
-            { "codigo": "I.M.1.4.4", "descripcion": "Reconoce las diferencias entre gasto y ahorro." }
-          ]
-        },
-        {
-          "codigo": "M.1.4.41",
-          "descripcion": "Conversar con su familia sobre el buen uso del dinero y la importancia del ahorro.",
-          "indicadores": [
-            { "codigo": "I.M.1.4.4", "descripcion": "Reconoce las diferencias entre gasto y ahorro." }
-          ]
-        },
+        { "codigo": "M.1.4.29", "descripcion": "Comparar y relacionar actividades con las nociones de tiempo: ayer, hoy, mañana, tarde, noche, antes, ahora, después y días de la semana, en situaciones cotidianas.", "indicadores": ["I.M.1.4.2"] },
 
-        {
-          "codigo": "M.1.4.33",
-          "descripcion": "Identificar eventos probables y no probables en situaciones cotidianas.",
-          "indicadores": [
-            { "codigo": "M.1.5.1", "descripcion": "Soluciona problemas mediante la organización y representación de datos estadísticos provenientes de situaciones cotidianas, personales y de la identificación en eventos probables y no probables del entorno." }
-          ]
-        },
-        {
-          "codigo": "M.1.4.35",
-          "descripcion": "Representar de manera autónoma datos de sus preferencias (alimentos, juegos, vestimenta, lugares), con material concreto o en pictogramas.",
-          "indicadores": [
-            { "codigo": "M.1.5.1", "descripcion": "Soluciona problemas mediante la organización y representación de datos estadísticos provenientes de situaciones cotidianas, personales y de la identificación en eventos probables y no probables del entorno." }
-          ]
-        }
+        { "codigo": "M.1.4.37", "descripcion": "Reconocer el valor del dinero para obtener productos y servicios.", "indicadores": ["I.M.1.4.3"] },
+        { "codigo": "M.1.4.38", "descripcion": "Relacionar las fuentes de obtención del dinero y su utilidad.", "indicadores": ["I.M.1.4.3"] },
+        { "codigo": "M.1.4.39", "descripcion": "Establecer la relación de los precios y las cosas que quiere comprar.", "indicadores": ["I.M.1.4.3"] },
+        { "codigo": "M.1.4.40", "descripcion": "Identificar las diferencias entre gasto y ahorro.", "indicadores": ["I.M.1.4.4"] },
+
+        { "codigo": "M.1.4.41", "descripcion": "Conversar con su familia sobre el buen uso del dinero y la importancia del ahorro.", "indicadores": ["I.M.1.4.4"] },
+
+        { "codigo": "M.1.4.33", "descripcion": "Identificar eventos probables y no probables en situaciones cotidianas.", "indicadores": ["M.1.5.1"] },
+        { "codigo": "M.1.4.35", "descripcion": "Representar de manera autónoma datos de sus preferencias (alimentos, juegos, vestimenta, lugares), con material concreto o en pictogramas.", "indicadores": ["M.1.5.1"] }
       ]
     },
 
