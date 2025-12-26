@@ -20,15 +20,15 @@
         },
         {
           "codigo": "O.M.1.4",
-          "descripcion": "Explicar los procesos de medición estimación y/o comparación de longitudes, capacidades, masas mediante el uso de unidades no convencionales en la resolución de problemas."
+          "descripcion": "Explicar los procesos de medición, estimación y comparación de longitudes, capacidades y masas mediante el uso de unidades no convencionales en la resolución de problemas."
         },
         {
           "codigo": "O.M.1.5",
-          "descripcion": "Reconocer situaciones cotidianas de su entorno en las que existan problemas, cuya solución, requiera aplicar las medidas monetarias y de tiempo."
+          "descripcion": "Reconocer situaciones cotidianas de su entorno en las que existan problemas cuya solución requiera aplicar medidas monetarias y de tiempo."
         },
         {
           "codigo": "O.M.1.6",
-          "descripcion": "Comunicar ideas sobre la interpretación de su entorno (recolección de información) y explicar de manera verbal y/o gráfica (pictogramas) los procesos utilizados en la recolección de datos y en la resolución de problemas cotidianos sencillos."
+          "descripcion": "Comunicar ideas sobre la interpretación de su entorno mediante la recolección y representación de información en situaciones cotidianas sencillas."
         }
       ],
       "destrezas": [
@@ -44,7 +44,7 @@
         },
         {
           "codigo": "M.1.4.2",
-          "descripcion": "Reconocer la posición de objetos del entorno: derecha, izquierda.",
+          "descripcion": "Reconocer la posición de objetos del entorno: derecha e izquierda.",
           "indicadores": [
             {
               "codigo": "I.M.1.1.2",
@@ -54,7 +54,7 @@
         },
         {
           "codigo": "M.1.4.4",
-          "descripcion": "Distinguir la ubicación de objetos del entorno según las nociones arriba/ abajo, delante/atrás y encima/debajo.",
+          "descripcion": "Distinguir la ubicación de objetos del entorno según las nociones arriba/abajo, delante/atrás y encima/debajo.",
           "indicadores": [
             {
               "codigo": "I.M.1.1.2",
@@ -64,7 +64,7 @@
         },
         {
           "codigo": "M.1.4.5",
-          "descripcion": "Reconocer las semejanzas y diferencias entre los objetos del entorno de acuerdo con su forma y sus características físicas (color, tamaño y longitud).",
+          "descripcion": "Reconocer las semejanzas y diferencias entre los objetos del entorno de acuerdo con su forma y características físicas.",
           "indicadores": [
             {
               "codigo": "I.M.1.1.1",
@@ -74,27 +74,126 @@
         },
         {
           "codigo": "M.1.4.6",
-          "descripcion": "Agrupar colecciones de objetos del entorno según sus características físicas: color, tamaño (grande/pequeño), longitud (alto/bajo y largo/corto).",
+          "descripcion": "Agrupar colecciones de objetos del entorno según sus características físicas: color, tamaño y longitud.",
           "indicadores": [
             {
-              "codigo": "I.M.1.1.1",
-              "descripcion": "Compara y distingue objetos según su color, tamaño, longitud, textura y forma en situaciones cotidianas."
+              "codigo": "I.M.1.1.3",
+              "descripcion": "Construye series y agrupaciones utilizando objetos del entorno."
             }
           ]
         },
         {
           "codigo": "M.1.4.8",
-          "descripcion": "Describir y reproducir patrones con objetos del entorno por color, forma, tamaño, longitud o con siluetas de figuras geométricas, sonidos y movimientos.",
+          "descripcion": "Describir y reproducir patrones con objetos del entorno por color, forma, tamaño o longitud.",
           "indicadores": [
             {
               "codigo": "I.M.1.1.3",
-              "descripcion": "Construye series utilizando objetos del entorno, sonidos, movimientos, figuras y cuerpos geométricos y agrupaciones de elementos."
+              "descripcion": "Construye series utilizando objetos del entorno y figuras geométricas."
+            }
+          ]
+        },
+        {
+          "codigo": "M.1.4.11",
+          "descripcion": "Establecer relaciones de orden: más que y menos que, entre objetos del entorno.",
+          "indicadores": [
+            {
+              "codigo": "I.M.1.2.1",
+              "descripcion": "Establece relaciones de orden y secuencias numéricas en situaciones cotidianas."
+            }
+          ]
+        },
+        {
+          "codigo": "M.1.4.12",
+          "descripcion": "Utilizar la noción de cantidad en estimaciones y comparaciones de colecciones mediante cuantificadores.",
+          "indicadores": [
+            {
+              "codigo": "I.M.1.2.2",
+              "descripcion": "Resuelve situaciones que requieren comparar colecciones de objetos."
+            }
+          ]
+        },
+        {
+          "codigo": "M.1.4.13",
+          "descripcion": "Contar colecciones de objetos del 1 al 20 en circunstancias de la cotidianidad.",
+          "indicadores": [
+            {
+              "codigo": "I.M.1.2.2",
+              "descripcion": "Resuelve situaciones de conteo y comparación hasta el 20."
+            }
+          ]
+        },
+        {
+          "codigo": "M.1.4.14",
+          "descripcion": "Identificar cantidades y asociarlas con los numerales del 1 al 10 y el 0.",
+          "indicadores": [
+            {
+              "codigo": "I.M.1.2.1",
+              "descripcion": "Relaciona cantidades con numerales en situaciones cotidianas."
+            }
+          ]
+        },
+        {
+          "codigo": "M.1.4.36",
+          "descripcion": "Resolver problemas sencillos de suma y resta hasta 9 utilizando materiales manipulativos.",
+          "indicadores": [
+            {
+              "codigo": "I.M.1.2.2",
+              "descripcion": "Resuelve problemas de adición y sustracción con números naturales hasta 10."
+            }
+          ]
+        },
+        {
+          "codigo": "M.1.4.19",
+          "descripcion": "Reconocer cuerpos geométricos en objetos del entorno.",
+          "indicadores": [
+            {
+              "codigo": "I.M.1.3.1",
+              "descripcion": "Identifica cuerpos geométricos en su entorno inmediato."
+            }
+          ]
+        },
+        {
+          "codigo": "M.1.4.21",
+          "descripcion": "Reconocer figuras geométricas en objetos del entorno.",
+          "indicadores": [
+            {
+              "codigo": "I.M.1.3.1",
+              "descripcion": "Reconoce figuras geométricas en objetos del entorno."
+            }
+          ]
+        },
+        {
+          "codigo": "M.1.4.23",
+          "descripcion": "Medir y comparar objetos utilizando unidades no convencionales.",
+          "indicadores": [
+            {
+              "codigo": "I.M.1.4.1",
+              "descripcion": "Utiliza unidades de medida no convencionales para resolver situaciones cotidianas."
+            }
+          ]
+        },
+        {
+          "codigo": "M.1.4.29",
+          "descripcion": "Relacionar actividades con nociones de tiempo en situaciones cotidianas.",
+          "indicadores": [
+            {
+              "codigo": "I.M.1.4.2",
+              "descripcion": "Ordena secuencias temporales usando unidades de tiempo."
+            }
+          ]
+        },
+        {
+          "codigo": "M.1.4.35",
+          "descripcion": "Representar datos de sus preferencias mediante pictogramas.",
+          "indicadores": [
+            {
+              "codigo": "M.1.5.1",
+              "descripcion": "Organiza y representa datos estadísticos provenientes de situaciones cotidianas."
             }
           ]
         }
       ]
     },
-
     "EGB Elemental": { "objetivos": [], "destrezas": [] },
     "EGB Media": { "objetivos": [], "destrezas": [] },
     "EGB Superior": { "objetivos": [], "destrezas": [] },
