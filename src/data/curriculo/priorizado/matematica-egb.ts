@@ -34,41 +34,43 @@ type RawJson = {
 function s(x: any, fb = ""): string {
   return typeof x === "string" ? x : fb;
 }
-
-function arr<T>(x: any): T[] {
+function arrT<T>(x: any): T[] {
   return Array.isArray(x) ? (x as T[]) : [];
 }
 
 function normalize(json: RawJson): CurriculoMatematica {
-  const area = "Matemática" as const;
-  const fuente = s(json?.meta?.fuente, "MINEDUC Ecuador — Currículo Priorizado");
+  const area = (s(json?.meta?.area, "Matemática") as "Matemática");
+  const fuente = s(json?.meta?.fuente, "MINEDUC Ecuador — Currículo Priorizado por Competencias");
 
   const out: Record<string, Subnivel> = {};
   const subs = json?.subniveles ?? {};
 
   for (const [nombre, sub] of Object.entries(subs)) {
-    const objetivos = arr<any>(sub?.objetivos).map((o) => ({
-      codigo: s(o?.codigo, ""),
-      descripcion: s(o?.descripcion, ""),
-    })).filter(o => o.codigo || o.descripcion);
+    const objetivos = arrT<any>(sub?.objetivos).map((o) => ({
+      codigo: s(o?.codigo),
+      descripcion: s(o?.descripcion),
+    })).filter((o) => o.codigo || o.descripcion);
 
-    const destrezas = arr<any>(sub?.destrezas).map((d) => ({
-      codigo: s(d?.codigo, ""),
-      descripcion: s(d?.descripcion, ""),
-      indicadores: arr<any>(d?.indicadores).map((i) => ({
-        codigo: s(i?.codigo, ""),
-        descripcion: s(i?.descripcion, ""),
-      })).filter(i => i.codigo || i.descripcion),
-    })).filter(d => d.codigo || d.descripcion);
+    const destrezas = arrT<any>(sub?.destrezas)
+      .map((d) => ({
+        codigo: s(d?.codigo),
+        descripcion: s(d?.descripcion),
+        indicadores: arrT<any>(d?.indicadores)
+          .map((i) => ({ codigo: s(i?.codigo), descripcion: s(i?.descripcion) }))
+          .filter((i) => i.codigo || i.descripcion),
+      }))
+      .filter((d) => d.codigo || d.descripcion);
 
-    out[nombre] = {
-      nombre,
-      objetivos,
-      destrezas,
-    };
+    out[nombre] = { nombre, objetivos, destrezas };
+  }
+
+  // Asegura llaves base aunque estén vacías (para que el UI no reviente)
+  const base = ["EGB Preparatoria", "EGB Elemental", "EGB Media", "EGB Superior", "BGU"];
+  for (const k of base) {
+    if (!out[k]) out[k] = { nombre: k, objetivos: [], destrezas: [] };
   }
 
   return { area, fuente, subniveles: out };
 }
 
-export const matematicaPriorizado: CurriculoMatematica = normalize(raw as RawJson);
+export const matematicaPriorizado = normalize(raw as unknown as RawJson);

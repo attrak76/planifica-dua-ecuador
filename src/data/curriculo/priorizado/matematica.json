@@ -1,28 +1,52 @@
 {
   "meta": {
     "area": "Matemática",
-    "fuente": "Currículo Priorizado por Competencias - MINEDUC Ecuador"
+    "fuente": "MINEDUC Ecuador — Currículo Priorizado por Competencias"
   },
   "subniveles": {
     "EGB Preparatoria": {
-      "objetivos": [ ... ],
-      "destrezas": [ ... ]
+      "objetivos": [
+        { "codigo": "OP-1", "descripcion": "Objetivo priorizado (pegar del currículo vigente)." }
+      ],
+      "destrezas": [
+        {
+          "codigo": "MP-1",
+          "descripcion": "Destreza priorizada (pegar del currículo vigente).",
+          "indicadores": [
+            { "codigo": "IMP-1", "descripcion": "Indicador priorizado (pegar del currículo vigente)." }
+          ]
+        }
+      ]
     },
-    "EGB Elemental": {
-      "objetivos": [ ... ],
-      "destrezas": [ ... ]
-    },
+    "EGB Elemental": { "objetivos": [], "destrezas": [] },
     "EGB Media": {
-      "objetivos": [ ... ],
-      "destrezas": [ ... ]
+      "objetivos": [
+        { "codigo": "OM-EM-1", "descripcion": "Objetivo de EGB Media (pegar del currículo vigente)." }
+      ],
+      "destrezas": [
+        {
+          "codigo": "M.EM.1",
+          "descripcion": "Destreza de EGB Media (pegar del currículo vigente).",
+          "indicadores": [
+            { "codigo": "I.EM.1", "descripcion": "Indicador de EGB Media (pegar del currículo vigente)." }
+          ]
+        }
+      ]
     },
-    "EGB Superior": {
-      "objetivos": [ ... ],
-      "destrezas": [ ... ]
-    },
+    "EGB Superior": { "objetivos": [], "destrezas": [] },
     "BGU": {
-      "objetivos": [ ... ],
-      "destrezas": [ ... ]
+      "objetivos": [
+        { "codigo": "OM-BGU-1", "descripcion": "Objetivo de BGU (pegar del currículo vigente)." }
+      ],
+      "destrezas": [
+        {
+          "codigo": "M.BGU.1",
+          "descripcion": "Destreza de BGU (pegar del currículo vigente).",
+          "indicadores": [
+            { "codigo": "I.BGU.1", "descripcion": "Indicador de BGU (pegar del currículo vigente)." }
+          ]
+        }
+      ]
     }
   }
 }
