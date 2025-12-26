@@ -21,11 +21,11 @@ type RawJson = {
   subniveles?: Record<
     string,
     {
-      objetivos?: Array<{ codigo?: any; descripcion?: any }>;
+      objetivos?: Array<{ codigo?: string; descripcion?: string }>;
       destrezas?: Array<{
-        codigo?: any;
-        descripcion?: any;
-        indicadores?: Array<{ codigo?: any; descripcion?: any }>;
+        codigo?: string;
+        descripcion?: string;
+        indicadores?: Array<{ codigo?: string; descripcion?: string }>;
       }>;
     }
   >;
@@ -37,33 +37,40 @@ function s(x: any, fb = ""): string {
 function arr<T>(x: any): T[] {
   return Array.isArray(x) ? (x as T[]) : [];
 }
+function cleanKey(k: string): string {
+  // 🔥 esto elimina espacios dobles, tabs y espacios al final/inicio
+  return (k || "").replace(/\s+/g, " ").trim();
+}
 
 function normalize(json: RawJson): CurriculoMatematica {
   const area = "Matemática" as const;
-  const fuente = s(json?.meta?.fuente, "MINEDUC Ecuador – Currículo Priorizado por Competencias");
+  const fuente = s(json?.meta?.fuente, "MINEDUC Ecuador — Currículo Priorizado por Competencias");
 
-  const rawSubs = json?.subniveles ?? {};
-  const subniveles: Record<string, Subnivel> = {};
+  const out: Record<string, Subnivel> = {};
+  const subs = json?.subniveles ?? {};
 
-  for (const [nombre, sub] of Object.entries(rawSubs)) {
-    const objetivos = arr<{ codigo?: any; descripcion?: any }>(sub?.objetivos).map((o) => ({
-      codigo: s(o?.codigo),
-      descripcion: s(o?.descripcion),
-    })).filter(o => o.codigo || o.descripcion);
+  for (const k of Object.keys(subs)) {
+    const key = cleanKey(k);
+    const sub = subs[k] ?? {};
 
-    const destrezas = arr<any>(sub?.destrezas).map((d) => ({
-      codigo: s(d?.codigo),
-      descripcion: s(d?.descripcion),
+    const objetivos = arr<any>(sub.objetivos).map((o) => ({
+      codigo: s(o?.codigo).trim(),
+      descripcion: s(o?.descripcion).trim(),
+    })).filter((o) => o.codigo || o.descripcion);
+
+    const destrezas = arr<any>(sub.destrezas).map((d) => ({
+      codigo: s(d?.codigo).trim(),
+      descripcion: s(d?.descripcion).trim(),
       indicadores: arr<any>(d?.indicadores).map((i) => ({
-        codigo: s(i?.codigo),
-        descripcion: s(i?.descripcion),
-      })).filter(i => i.codigo || i.descripcion),
-    })).filter(d => d.codigo || d.descripcion);
+        codigo: s(i?.codigo).trim(),
+        descripcion: s(i?.descripcion).trim(),
+      })).filter((i) => i.codigo || i.descripcion),
+    })).filter((d) => d.codigo || d.descripcion);
 
-    subniveles[nombre] = { nombre, objetivos, destrezas };
+    out[key] = { nombre: key, objetivos, destrezas };
   }
 
-  return { area, fuente, subniveles };
+  return { area, fuente, subniveles: out };
 }
 
-export const matematicaPriorizado: CurriculoMatematica = normalize(raw as any);
+export const matematicaPriorizado: CurriculoMatematica = normalize(raw as RawJson);
