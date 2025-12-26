@@ -21,12 +21,8 @@ type RawJson = {
   subniveles?: Record<
     string,
     {
-      objetivos?: Array<{ codigo?: string; descripcion?: string }>;
-      destrezas?: Array<{
-        codigo?: string;
-        descripcion?: string;
-        indicadores?: Array<{ codigo?: string; descripcion?: string }>;
-      }>;
+      objetivos?: any[];
+      destrezas?: any[];
     }
   >;
 };
@@ -37,40 +33,54 @@ function s(x: any, fb = ""): string {
 function arr<T>(x: any): T[] {
   return Array.isArray(x) ? (x as T[]) : [];
 }
-function cleanKey(k: string): string {
-  // 🔥 esto elimina espacios dobles, tabs y espacios al final/inicio
-  return (k || "").replace(/\s+/g, " ").trim();
-}
 
 function normalize(json: RawJson): CurriculoMatematica {
-  const area = "Matemática" as const;
+  const area = (s(json?.meta?.area, "Matemática") as "Matemática") || "Matemática";
   const fuente = s(json?.meta?.fuente, "MINEDUC Ecuador — Currículo Priorizado por Competencias");
 
-  const out: Record<string, Subnivel> = {};
-  const subs = json?.subniveles ?? {};
+  const subniveles: Record<string, Subnivel> = {};
+  const rawSubs = json?.subniveles ?? {};
 
-  for (const k of Object.keys(subs)) {
-    const key = cleanKey(k);
-    const sub = subs[k] ?? {};
+  for (const [nombre, sub] of Object.entries(rawSubs)) {
+    const objetivos: Objetivo[] = arr<any>(sub?.objetivos).map((o) => ({
+      codigo: s(o?.codigo),
+      descripcion: s(o?.descripcion),
+    }));
 
-    const objetivos = arr<any>(sub.objetivos).map((o) => ({
-      codigo: s(o?.codigo).trim(),
-      descripcion: s(o?.descripcion).trim(),
-    })).filter((o) => o.codigo || o.descripcion);
-
-    const destrezas = arr<any>(sub.destrezas).map((d) => ({
-      codigo: s(d?.codigo).trim(),
-      descripcion: s(d?.descripcion).trim(),
+    const destrezas: Destreza[] = arr<any>(sub?.destrezas).map((d) => ({
+      codigo: s(d?.codigo),
+      descripcion: s(d?.descripcion),
       indicadores: arr<any>(d?.indicadores).map((i) => ({
-        codigo: s(i?.codigo).trim(),
-        descripcion: s(i?.descripcion).trim(),
-      })).filter((i) => i.codigo || i.descripcion),
-    })).filter((d) => d.codigo || d.descripcion);
+        codigo: s(i?.codigo),
+        descripcion: s(i?.descripcion),
+      })),
+    }));
 
-    out[key] = { nombre: key, objetivos, destrezas };
+    subniveles[nombre] = { nombre, objetivos, destrezas };
   }
 
-  return { area, fuente, subniveles: out };
+  return { area, fuente, subniveles };
 }
 
-export const matematicaPriorizado: CurriculoMatematica = normalize(raw as RawJson);
+export const matematicaPriorizado = normalize(raw as any);
+
+/**
+ * Filtro ESTRICTO por prefijo de código según subnivel:
+ * - Preparatoria: M.1.*
+ * - Elemental: M.2.*
+ * - Media: M.3.*
+ * - Superior: M.4.* o M.5.*
+ */
+export function filtroDestrezasPorSubnivel(nombreSubnivel: string, destrezas: Destreza[]): Destreza[] {
+  const rules: Record<string, RegExp> = {
+    "EGB Preparatoria": /^M\.1\./,
+    "EGB Elemental": /^M\.2\./,
+    "EGB Media": /^M\.3\./,
+    "EGB Superior": /^M\.(4|5)\./,
+  };
+
+  const re = rules[nombreSubnivel];
+  if (!re) return destrezas; // si no hay regla (p.ej. BGU), no filtramos por ahora
+
+  return destrezas.filter((d) => re.test(d.codigo));
+}
