@@ -6,195 +6,134 @@
   "subniveles": {
     "EGB Preparatoria": {
       "objetivos": [
-        {
-          "codigo": "O.M.1.1",
-          "descripcion": "Reconocer la posición y atributos de colecciones de objetos, mediante la identificación de patrones observables, a su alrededor, para la descripción de su entorno."
-        },
-        {
-          "codigo": "O.M.1.2",
-          "descripcion": "Comprender la noción de cantidad, las relaciones de orden y la noción de adición y sustracción, con el uso de material concreto para desarrollar su pensamiento y resolver problemas de la vida cotidiana."
-        },
-        {
-          "codigo": "O.M.1.3",
-          "descripcion": "Reconocer, comparar y describir características de cuerpos y figuras geométricas de su entorno inmediato, para lograr una mejor comprensión de su medio."
-        },
-        {
-          "codigo": "O.M.1.4",
-          "descripcion": "Explicar los procesos de medición, estimación y comparación de longitudes, capacidades y masas mediante el uso de unidades no convencionales en la resolución de problemas."
-        },
-        {
-          "codigo": "O.M.1.5",
-          "descripcion": "Reconocer situaciones cotidianas de su entorno en las que existan problemas cuya solución requiera aplicar medidas monetarias y de tiempo."
-        },
-        {
-          "codigo": "O.M.1.6",
-          "descripcion": "Comunicar ideas sobre la interpretación de su entorno mediante la recolección y representación de información en situaciones cotidianas sencillas."
-        }
+        { "codigo": "O.M.1.1", "descripcion": "Reconocer la posición y atributos de colecciones de objetos, mediante la identificación de patrones observables, a su alrededor, para la descripción de su entorno." },
+        { "codigo": "O.M.1.2", "descripcion": "Comprender la noción de cantidad, las relaciones de orden y la noción de adición y sustracción, con el uso de material concreto para desarrollar su pensamiento y resolver problemas de la vida cotidiana." },
+        { "codigo": "O.M.1.3", "descripcion": "Reconocer, comparar y describir características de cuerpos y figuras geométricas de su entorno inmediato, para lograr una mejor comprensión de su medio." },
+        { "codigo": "O.M.1.4", "descripcion": "Explicar los procesos de medición, estimación y comparación de longitudes, capacidades y masas mediante el uso de unidades no convencionales en la resolución de problemas." },
+        { "codigo": "O.M.1.5", "descripcion": "Reconocer situaciones cotidianas de su entorno en las que existan problemas cuya solución requiera aplicar medidas monetarias y de tiempo." },
+        { "codigo": "O.M.1.6", "descripcion": "Comunicar ideas sobre la interpretación de su entorno mediante la recolección y representación de información en situaciones cotidianas sencillas." }
       ],
       "destrezas": [
         {
           "codigo": "M.1.4.1",
           "descripcion": "Reconocer los colores primarios: rojo, amarillo y azul; los colores blanco y negro y los colores secundarios, en objetos del entorno.",
           "indicadores": [
-            {
-              "codigo": "I.M.1.1.1",
-              "descripcion": "Compara y distingue objetos según su color, tamaño, longitud, textura y forma en situaciones cotidianas."
-            }
-          ]
-        },
-        {
-          "codigo": "M.1.4.2",
-          "descripcion": "Reconocer la posición de objetos del entorno: derecha e izquierda.",
-          "indicadores": [
-            {
-              "codigo": "I.M.1.1.2",
-              "descripcion": "Describe la ubicación de los objetos del entorno."
-            }
-          ]
-        },
-        {
-          "codigo": "M.1.4.4",
-          "descripcion": "Distinguir la ubicación de objetos del entorno según las nociones arriba/abajo, delante/atrás y encima/debajo.",
-          "indicadores": [
-            {
-              "codigo": "I.M.1.1.2",
-              "descripcion": "Describe la ubicación de los objetos del entorno."
-            }
-          ]
-        },
-        {
-          "codigo": "M.1.4.5",
-          "descripcion": "Reconocer las semejanzas y diferencias entre los objetos del entorno de acuerdo con su forma y características físicas.",
-          "indicadores": [
-            {
-              "codigo": "I.M.1.1.1",
-              "descripcion": "Compara y distingue objetos según su color, tamaño, longitud, textura y forma en situaciones cotidianas."
-            }
-          ]
-        },
-        {
-          "codigo": "M.1.4.6",
-          "descripcion": "Agrupar colecciones de objetos del entorno según sus características físicas: color, tamaño y longitud.",
-          "indicadores": [
-            {
-              "codigo": "I.M.1.1.3",
-              "descripcion": "Construye series y agrupaciones utilizando objetos del entorno."
-            }
-          ]
-        },
-        {
-          "codigo": "M.1.4.8",
-          "descripcion": "Describir y reproducir patrones con objetos del entorno por color, forma, tamaño o longitud.",
-          "indicadores": [
-            {
-              "codigo": "I.M.1.1.3",
-              "descripcion": "Construye series utilizando objetos del entorno y figuras geométricas."
-            }
-          ]
-        },
-        {
-          "codigo": "M.1.4.11",
-          "descripcion": "Establecer relaciones de orden: más que y menos que, entre objetos del entorno.",
-          "indicadores": [
-            {
-              "codigo": "I.M.1.2.1",
-              "descripcion": "Establece relaciones de orden y secuencias numéricas en situaciones cotidianas."
-            }
-          ]
-        },
-        {
-          "codigo": "M.1.4.12",
-          "descripcion": "Utilizar la noción de cantidad en estimaciones y comparaciones de colecciones mediante cuantificadores.",
-          "indicadores": [
-            {
-              "codigo": "I.M.1.2.2",
-              "descripcion": "Resuelve situaciones que requieren comparar colecciones de objetos."
-            }
-          ]
-        },
-        {
-          "codigo": "M.1.4.13",
-          "descripcion": "Contar colecciones de objetos del 1 al 20 en circunstancias de la cotidianidad.",
-          "indicadores": [
-            {
-              "codigo": "I.M.1.2.2",
-              "descripcion": "Resuelve situaciones de conteo y comparación hasta el 20."
-            }
-          ]
-        },
-        {
-          "codigo": "M.1.4.14",
-          "descripcion": "Identificar cantidades y asociarlas con los numerales del 1 al 10 y el 0.",
-          "indicadores": [
-            {
-              "codigo": "I.M.1.2.1",
-              "descripcion": "Relaciona cantidades con numerales en situaciones cotidianas."
-            }
-          ]
-        },
-        {
-          "codigo": "M.1.4.36",
-          "descripcion": "Resolver problemas sencillos de suma y resta hasta 9 utilizando materiales manipulativos.",
-          "indicadores": [
-            {
-              "codigo": "I.M.1.2.2",
-              "descripcion": "Resuelve problemas de adición y sustracción con números naturales hasta 10."
-            }
-          ]
-        },
-        {
-          "codigo": "M.1.4.19",
-          "descripcion": "Reconocer cuerpos geométricos en objetos del entorno.",
-          "indicadores": [
-            {
-              "codigo": "I.M.1.3.1",
-              "descripcion": "Identifica cuerpos geométricos en su entorno inmediato."
-            }
-          ]
-        },
-        {
-          "codigo": "M.1.4.21",
-          "descripcion": "Reconocer figuras geométricas en objetos del entorno.",
-          "indicadores": [
-            {
-              "codigo": "I.M.1.3.1",
-              "descripcion": "Reconoce figuras geométricas en objetos del entorno."
-            }
-          ]
-        },
-        {
-          "codigo": "M.1.4.23",
-          "descripcion": "Medir y comparar objetos utilizando unidades no convencionales.",
-          "indicadores": [
-            {
-              "codigo": "I.M.1.4.1",
-              "descripcion": "Utiliza unidades de medida no convencionales para resolver situaciones cotidianas."
-            }
-          ]
-        },
-        {
-          "codigo": "M.1.4.29",
-          "descripcion": "Relacionar actividades con nociones de tiempo en situaciones cotidianas.",
-          "indicadores": [
-            {
-              "codigo": "I.M.1.4.2",
-              "descripcion": "Ordena secuencias temporales usando unidades de tiempo."
-            }
-          ]
-        },
-        {
-          "codigo": "M.1.4.35",
-          "descripcion": "Representar datos de sus preferencias mediante pictogramas.",
-          "indicadores": [
-            {
-              "codigo": "M.1.5.1",
-              "descripcion": "Organiza y representa datos estadísticos provenientes de situaciones cotidianas."
-            }
+            { "codigo": "I.M.1.1.1", "descripcion": "Compara y distingue objetos según su color, tamaño, longitud, textura y forma en situaciones cotidianas." }
           ]
         }
       ]
     },
-    "EGB Elemental": { "objetivos": [], "destrezas": [] },
+
+    "EGB Elemental": {
+      "criterios": [
+        { "codigo": "CE.M.2.1", "descripcion": "Descubre regularidades matemáticas del entorno inmediato utilizando los conocimientos de conjuntos y las operaciones básicas con números naturales, para explicar verbalmente, en forma ordenada, clara y razonada, situaciones cotidianas y procedimientos para construir otras regularidades." },
+        { "codigo": "CE.M.2.2", "descripcion": "Aplica estrategias de conteo, el concepto de número, expresiones matemáticas sencillas, propiedades de la suma y la multiplicación, procedimientos de cálculos de suma, resta, multiplicación sin reagrupación y división exacta (divisor de una cifra) con números naturales hasta 9 999, para formular y resolver problemas de la vida cotidiana del entorno y explicar de forma razonada los resultados obtenidos." },
+        { "codigo": "CE.M.2.3", "descripcion": "Emplea elementos básicos de geometría, las propiedades de cuerpos y figuras geométricas, la medición, estimación y cálculos de perímetros, para enfrentar situaciones cotidianas de carácter geométrico." },
+        { "codigo": "CE.M.2.4", "descripcion": "Resuelve problemas cotidianos sencillos que requieran el uso de instrumentos de medida y la conversión de unidades, para determinar la longitud, masa, capacidad y costo de objetos del entorno, y explicar actividades cotidianas en función del tiempo." },
+        { "codigo": "CE.M.2.5", "descripcion": "Examina datos cuantificables del entorno cercano utilizando algunos recursos sencillos de recolección y representación gráfica (pictogramas y diagramas de barras), para interpretar y comunicar, oralmente y por escrito, información y conclusiones, asumiendo compromisos." }
+      ],
+      "objetivos": [
+        { "codigo": "O.M.2.1", "descripcion": "Explicar y construir patrones de figuras y numéricos relacionándolos con la suma, la resta y la multiplicación, para desarrollar el pensamiento lógico matemático." },
+        { "codigo": "O.M.2.2", "descripcion": "Utilizar objetos del entorno para formar conjuntos, establecer gráficamente la correspondencia entre sus elementos y desarrollar la comprensión de modelos matemáticos." },
+        { "codigo": "O.M.2.3", "descripcion": "Integrar concretamente el concepto de número, y reconocer situaciones del entorno en las que se presenten problemas que requieran la formulación de expresiones matemáticas sencillas, para resolverlas, de forma individual o grupal, utilizando los algoritmos de adición, sustracción, multiplicación y división exacta." },
+        { "codigo": "O.M.2.4", "descripcion": "Aplicar estrategias de conteo, procedimientos de cálculos de suma, resta, multiplicación y divisiones del 0 al 9 999, para resolver de forma colaborativa problemas cotidianos de su entorno." },
+        { "codigo": "O.M.2.5", "descripcion": "Comprender el espacio que lo rodea, valorar lugares históricos, turísticos y bienes naturales, identificando como conceptos matemáticos los elementos y propiedades de cuerpos y figuras geométricas en objetos del entorno." },
+        { "codigo": "O.M.2.6", "descripcion": "Resolver situaciones cotidianas que impliquen la medición, estimación y el cálculo de longitudes, capacidades y masas, con unidades convencionales y no convencionales de objetos de su entorno, para una mejor comprensión del espacio que le rodea, la valoración de su tiempo y el de los otros, y el fomento de la honestidad e integridad en sus actos." },
+        { "codigo": "O.M.2.7", "descripcion": "Participar en proyectos de análisis de información del entorno inmediato, mediante la recolección y representación de datos estadísticos en pictogramas y diagramas de barras; potenciando el pensamiento lógico-matemático y creativo, al interpretar la información y expresar conclusiones asumiendo compromisos." }
+      ],
+      "indicadores_catalogo": [
+        { "codigo": "I.M.2.1.1", "descripcion": "Discrimina propiedades de los objetos y obtiene subconjuntos de un conjunto universo." },
+        { "codigo": "I.M.2.1.2", "descripcion": "Propone patrones y construye series de objetos, figuras y secuencias numéricas." },
+        { "codigo": "I.M.2.1.3", "descripcion": "Discrimina en diagramas, tablas y una cuadrícula los pares ordenados del producto cartesiano AxB que cumplen una relación uno a uno." },
+
+        { "codigo": "I.M.2.2.1", "descripcion": "Completa secuencias numéricas ascendentes o descendentes con números naturales de hasta cuatro cifras, utilizando material concreto, simbologías, estrategias de conteo y la representación en la semirrecta numérica." },
+        { "codigo": "I.M.2.2.2", "descripcion": "Aplica de manera razonada la composición y descomposición de unidades, decenas, centenas y unidades de mil, para establecer relaciones de orden (=, >, <), calcula adiciones y sustracciones y da solución a problemas matemáticos sencillos del entorno." },
+        { "codigo": "I.M.2.2.3", "descripcion": "Opera utilizando la adición y sustracción con números naturales de hasta cuatro cifras en el contexto de un problema matemático relacionado con el ahorro del entorno." },
+        { "codigo": "I.M.2.2.4", "descripcion": "Opera utilizando la multiplicación sin reagrupación y la división exacta (divisor de una cifra) con números naturales en el contexto de un problema del entorno; reconoce mitades y dobles en objetos." },
+        { "codigo": "I.M.2.2.5", "descripcion": "Simula una llamada de emergencia a los servicios de rescate, utilizando un teléfono de juguete, para solicitar ayuda en caso de un siniestro de tránsito." },
+
+        { "codigo": "I.M.2.3.1", "descripcion": "Clasifica, según sus elementos y propiedades, cuerpos y figuras geométricas." },
+        { "codigo": "I.M.2.3.2", "descripcion": "Identifica elementos básicos de la Geometría en cuerpos y figuras geométricas." },
+        { "codigo": "I.M.2.3.3", "descripcion": "Utiliza elementos básicos de la Geometría para dibujar y describir figuras planas en objetos del entorno." },
+        { "codigo": "I.M.2.3.4", "descripcion": "Resuelve situaciones cotidianas que requieran de la medición y/o estimación del perímetro de figuras planas." },
+
+        { "codigo": "I.M.2.4.1", "descripcion": "Resuelve situaciones problémicas sencillas que requieran de la comparación de longitudes." },
+        { "codigo": "I.M.2.4.2", "descripcion": "Destaca situaciones cotidianas que requieran de la conversión de unidades monetarias y utilice el dinero de manera consciente y responsable." },
+        { "codigo": "I.M.2.4.3", "descripcion": "Utiliza las unidades de tiempo para describir sus actividades cotidianas." },
+        { "codigo": "I.M.2.4.4", "descripcion": "Resuelve situaciones problémicas sencillas que requieran de la comparación de la masa de objetos del entorno, e identifica la libra como unidad de medida de masa." },
+        { "codigo": "I.M.2.4.5", "descripcion": "Resuelve situaciones problémicas sencillas que requieran de la estimación y comparación de capacidades." },
+        { "codigo": "I.M.2.4.6", "descripcion": "Busca apoyo, haciendo preguntas concretas, para la resolución de situaciones problémicas asociadas a estimación y comparación de longitud, masa, capacidad y unidades monetarias." },
+
+        { "codigo": "I.M.2.5.1", "descripcion": "Comunica, representa e interpreta información del entorno inmediato en tablas de frecuencias y diagramas de barras; explica conclusiones y asume compromisos." },
+        { "codigo": "I.M.2.5.2", "descripcion": "Resuelve situaciones cotidianas que requieran de combinaciones simples de hasta tres por tres elementos." },
+        { "codigo": "I.M.2.5.4", "descripcion": "Elabora un gráfico simple (pictograma o diagrama de barras) sobre el uso del cinturón de seguridad y explica la importancia de su uso." }
+      ],
+      "destrezas": [
+        { "codigo": "M.2.1.1", "descripcion": "Representar gráficamente conjuntos y subconjuntos, discriminando las propiedades o atributos de los objetos.", "criterio": "CE.M.2.1", "indicadores": ["I.M.2.1.1"] },
+        { "codigo": "M.2.1.2", "descripcion": "Describir y reproducir patrones de objetos y figuras basándose en sus atributos.", "criterio": "CE.M.2.1", "indicadores": ["I.M.2.1.2"] },
+        { "codigo": "M.2.1.3", "descripcion": "Describir y reproducir patrones numéricos basados en sumas y restas, contando hacia adelante y hacia atrás.", "criterio": "CE.M.2.1", "indicadores": ["I.M.2.1.2"] },
+        { "codigo": "M.2.1.4", "descripcion": "Describir y reproducir patrones numéricos crecientes con la suma y la multiplicación.", "criterio": "CE.M.2.1", "indicadores": ["I.M.2.1.2"] },
+        { "codigo": "M.2.1.5", "descripcion": "Construir patrones de figuras basándose en sus atributos y patrones numéricos a partir de la suma, resta y multiplicación.", "criterio": "CE.M.2.1", "indicadores": ["I.M.2.1.2"] },
+        { "codigo": "M.2.1.6", "descripcion": "Relacionar los elementos del conjunto de salida con los elementos del conjunto de llegada, a partir de la correspondencia entre elementos.", "criterio": "CE.M.2.1", "indicadores": ["I.M.2.1.3"] },
+        { "codigo": "M.2.1.7", "descripcion": "Representar, en diagramas, tablas y una cuadrícula, las parejas ordenadas de una relación específica entre los elementos del conjunto de salida y los elementos del conjunto de llegada.", "criterio": "CE.M.2.1", "indicadores": ["I.M.2.1.3"] },
+        { "codigo": "M.2.1.9", "descripcion": "Representar por extensión y gráficamente los pares ordenados del producto cartesiano AxB.", "criterio": "CE.M.2.1", "indicadores": ["I.M.2.1.3"] },
+
+        { "codigo": "M.2.1.12", "descripcion": "Representar, escribir y leer los números naturales del 0 al 9 999 en forma concreta, gráfica (en la semirrecta numérica) y simbólica.", "criterio": "CE.M.2.2", "indicadores": ["I.M.2.2.1"] },
+        { "codigo": "M.2.1.13", "descripcion": "Contar cantidades del 0 al 9 999 para verificar estimaciones (en grupos de dos, tres, cinco y diez).", "criterio": "CE.M.2.2", "indicadores": ["I.M.2.2.1"] },
+        { "codigo": "M.2.1.14", "descripcion": "Reconocer el valor posicional de números naturales de hasta cuatro cifras, basándose en la composición y descomposición de unidades, decenas, centenas y unidades de mil.", "criterio": "CE.M.2.2", "indicadores": ["I.M.2.2.2"] },
+        { "codigo": "M.2.1.15", "descripcion": "Establecer relaciones de secuencia y de orden en un conjunto de números naturales de hasta cuatro cifras, utilizando simbología matemática (>, =, <).", "criterio": "CE.M.2.2", "indicadores": ["I.M.2.2.2"] },
+
+        { "codigo": "M.2.1.18", "descripcion": "Reconocer mitades y dobles en unidades de objetos.", "criterio": "CE.M.2.2", "indicadores": ["I.M.2.2.4"] },
+        { "codigo": "M.2.1.19", "descripcion": "Relacionar la noción de adición con la de agregar objetos a un conjunto.", "criterio": "CE.M.2.2", "indicadores": ["I.M.2.2.2"] },
+        { "codigo": "M.2.1.20", "descripcion": "Vincular la noción de sustracción con quitar objetos de un conjunto y establecer la diferencia entre dos cantidades.", "criterio": "CE.M.2.2", "indicadores": ["I.M.2.2.2"] },
+        { "codigo": "M.2.1.21", "descripcion": "Realizar adiciones y sustracciones con los números hasta 9 999 (concreto, mental, gráfico y numérico).", "criterio": "CE.M.2.2", "indicadores": ["I.M.2.2.2"] },
+        { "codigo": "M.2.1.22", "descripcion": "Aplicar estrategias de descomposición en decenas, centenas y miles en cálculos de suma y resta.", "criterio": "CE.M.2.2", "indicadores": ["I.M.2.2.2"] },
+        { "codigo": "M.2.1.24", "descripcion": "Resolver y plantear problemas que requieran sumas y restas con números hasta de cuatro cifras e interpretar la solución.", "criterio": "CE.M.2.2", "indicadores": ["I.M.2.2.2", "I.M.2.2.3"] },
+        { "codigo": "M.2.1.25", "descripcion": "Relacionar la noción de multiplicación con patrones de sumandos iguales o situaciones de “tantas veces tanto”.", "criterio": "CE.M.2.2", "indicadores": ["I.M.2.2.4"] },
+        { "codigo": "M.2.1.26", "descripcion": "Realizar multiplicaciones en función del modelo grupal, geométrico y lineal.", "criterio": "CE.M.2.2", "indicadores": ["I.M.2.2.4"] },
+        { "codigo": "M.2.1.27", "descripcion": "Memorizar paulatinamente las combinaciones multiplicativas (tablas de multiplicar) con material concreto.", "criterio": "CE.M.2.2", "indicadores": ["I.M.2.2.4"] },
+        { "codigo": "M.2.1.28", "descripcion": "Aplicar las reglas de multiplicación por 10, 100 y 1 000 en números de hasta dos cifras.", "criterio": "CE.M.2.2", "indicadores": ["I.M.2.2.4"] },
+        { "codigo": "M.2.1.29", "descripcion": "Aplicar propiedades conmutativa y asociativa de la multiplicación en el cálculo escrito y mental y en problemas.", "criterio": "CE.M.2.2", "indicadores": ["I.M.2.2.4"] },
+        { "codigo": "M.2.1.30", "descripcion": "Relacionar la noción de división con patrones de resta iguales o reparto en tantos iguales.", "criterio": "CE.M.2.2", "indicadores": ["I.M.2.2.4"] },
+        { "codigo": "M.2.1.33", "descripcion": "Resolver problemas relacionados con la multiplicación y la división utilizando varias estrategias e interpretar la solución.", "criterio": "CE.M.2.2", "indicadores": ["I.M.2.2.4"] },
+        { "codigo": "M.2.1.34", "descripcion": "Reconocer la importancia del ahorro y cómo aplicarlo en su vida diaria para alcanzar metas personales y contribuir al bienestar familiar.", "criterio": "CE.M.2.2", "indicadores": ["I.M.2.2.3"] },
+        { "codigo": "M.2.1.35", "descripcion": "Identificar los números de contactos de emergencia para solicitar ayuda en caso de un siniestro de tránsito y comprender la responsabilidad de hacer un buen uso de estos números.", "criterio": "CE.M.2.2", "indicadores": ["I.M.2.2.5"] },
+
+        { "codigo": "M.2.2.2", "descripcion": "Clasificar objetos, cuerpos geométricos y figuras geométricas según sus propiedades.", "criterio": "CE.M.2.3", "indicadores": ["I.M.2.3.1"] },
+        { "codigo": "M.2.2.3", "descripcion": "Identificar formas cuadradas, triangulares, rectangulares y circulares en cuerpos geométricos del entorno y/o modelos geométricos.", "criterio": "CE.M.2.3", "indicadores": ["I.M.2.3.1"] },
+        { "codigo": "M.2.2.4", "descripcion": "Construir figuras geométricas como cuadrados, triángulos, rectángulos y círculos.", "criterio": "CE.M.2.3", "indicadores": ["I.M.2.3.3"] },
+        { "codigo": "M.2.2.5", "descripcion": "Distinguir lados, frontera interior y exterior, vértices y ángulos en figuras geométricas.", "criterio": "CE.M.2.3", "indicadores": ["I.M.2.3.2"] },
+        { "codigo": "M.2.2.6", "descripcion": "Reconocer y diferenciar cuadrados y rectángulos y determinar el perímetro por estimación y/o medición.", "criterio": "CE.M.2.3", "indicadores": ["I.M.2.3.4"] },
+        { "codigo": "M.2.2.7", "descripcion": "Reconocer líneas, rectas y curvas en figuras planas y cuerpos.", "criterio": "CE.M.2.3", "indicadores": ["I.M.2.3.2"] },
+        { "codigo": "M.2.2.9", "descripcion": "Reconocer y clasificar ángulos según su amplitud (recta, aguda y obtusa) en objetos, cuerpos y figuras.", "criterio": "CE.M.2.3", "indicadores": ["I.M.2.3.2"] },
+
+        { "codigo": "M.2.2.10", "descripcion": "Medir, estimar y comparar longitudes de objetos del entorno, contrastándolas con patrones no convencionales.", "criterio": "CE.M.2.4", "indicadores": ["I.M.2.4.1", "I.M.2.4.6"] },
+        { "codigo": "M.2.2.11", "descripcion": "Utilizar el metro y sus submúltiplos (dm, cm, mm) en la estimación y medición de longitudes.", "criterio": "CE.M.2.4", "indicadores": ["I.M.2.4.1", "I.M.2.4.6"] },
+
+        { "codigo": "M.2.2.13", "descripcion": "Representar cantidades monetarias con monedas y billetes didácticos.", "criterio": "CE.M.2.4", "indicadores": ["I.M.2.4.2"] },
+        { "codigo": "M.2.2.14", "descripcion": "Realizar conversiones monetarias simples en situaciones significativas.", "criterio": "CE.M.2.4", "indicadores": ["I.M.2.4.2"] },
+        { "codigo": "M.2.2.15", "descripcion": "Utilizar la unidad monetaria en actividades lúdicas y transacciones simples, destacando integridad y honestidad.", "criterio": "CE.M.2.4", "indicadores": ["I.M.2.4.2"] },
+
+        { "codigo": "M.2.2.16", "descripcion": "Reconocer día, noche, mañana, tarde, hoy, ayer, días de la semana y meses del año para ordenar secuencias temporales.", "criterio": "CE.M.2.4", "indicadores": ["I.M.2.4.3"] },
+        { "codigo": "M.2.2.17", "descripcion": "Realizar conversiones usuales entre años, meses, semanas, días, horas, minutos y segundos.", "criterio": "CE.M.2.4", "indicadores": ["I.M.2.4.3"] },
+
+        { "codigo": "M.2.2.19", "descripcion": "Medir, estimar y comparar masas contrastándolas con patrones no convencionales.", "criterio": "CE.M.2.4", "indicadores": ["I.M.2.4.4"] },
+        { "codigo": "M.2.2.20", "descripcion": "Utilizar gramo y kilogramo en la estimación y medición de objetos del entorno.", "criterio": "CE.M.2.4", "indicadores": ["I.M.2.4.4"] },
+
+        { "codigo": "M.2.2.23", "descripcion": "Medir, estimar y comparar capacidades contrastándolas con patrones no convencionales.", "criterio": "CE.M.2.4", "indicadores": ["I.M.2.4.5"] },
+        { "codigo": "M.2.2.24", "descripcion": "Utilizar el litro y sus submúltiplos (dl, cl, ml) en la estimación y medición de capacidades.", "criterio": "CE.M.2.4", "indicadores": ["I.M.2.4.5"] },
+
+        { "codigo": "M.2.2.26", "descripcion": "Solicitar ayuda cuando enfrente dificultades en problemas geométricos y de medidas, demostrando perseverancia y actitud positiva.", "criterio": "CE.M.2.4", "indicadores": ["I.M.2.4.6"] },
+        { "codigo": "M.2.2.27", "descripcion": "Reconocer el valor de sus pertenencias y utilizarlas de manera consciente y responsable.", "criterio": "CE.M.2.4", "indicadores": ["I.M.2.4.2"] },
+        { "codigo": "M.2.2.28", "descripcion": "Utilizar el dinero de manera responsable y reconocer su valor.", "criterio": "CE.M.2.4", "indicadores": ["I.M.2.4.2"] },
+        { "codigo": "M.2.2.29", "descripcion": "Reconocer símbolos y terminologías básicas relacionadas con el dinero; comprender su uso en situaciones cotidianas.", "criterio": "CE.M.2.4", "indicadores": ["I.M.2.4.2"] },
+
+        { "codigo": "M.2.3.1", "descripcion": "Organizar y representar datos estadísticos del entorno en tablas, pictogramas y diagramas de barras; interpretar conclusiones y asumir compromisos.", "criterio": "CE.M.2.5", "indicadores": ["I.M.2.5.1"] },
+        { "codigo": "M.2.3.2", "descripcion": "Realizar combinaciones simples y solucionar situaciones cotidianas.", "criterio": "CE.M.2.5", "indicadores": ["I.M.2.5.2"] },
+        { "codigo": "M.2.3.4", "descripcion": "Representar en gráficos sencillos la frecuencia del uso del cinturón de seguridad entre personas cercanas y comunicar la importancia de su uso.", "criterio": "CE.M.2.5", "indicadores": ["I.M.2.5.4"] }
+      ]
+    },
+
     "EGB Media": { "objetivos": [], "destrezas": [] },
     "EGB Superior": { "objetivos": [], "destrezas": [] },
     "BGU": { "objetivos": [], "destrezas": [] }
